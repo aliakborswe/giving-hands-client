@@ -9,8 +9,9 @@ const AllRoutes = () => {
                 <Route path="/" element={<MainLayout/>}>
                 {/* Public routes */}
                     <Route index element={<h1>Home</h1>}/>
+                    <Route path="posts" element={<h1>Posts</h1>}/>
+                    <Route path="profile" element={<h1>Profile</h1>}/>
                     <Route path="about" element={<h1>About</h1>}/>
-                    <Route path="contact" element={<h1>Contact</h1>}/>
                 {/* Privet routes */}
                 </Route>
                 {/* error route without header and footer */}

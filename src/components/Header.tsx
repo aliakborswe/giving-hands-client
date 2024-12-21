@@ -1,10 +1,10 @@
 
-import { LogIn, LogOut, Menu, User, UserRoundPlus, X } from "lucide-react";
+import { LogIn, LogOut, Menu, User, X } from "lucide-react";
 import logo from "@/assets/svg/logo.svg";
 import { useState } from "react";
-import { Link } from "react-router";
 import { Button } from "./ui/button";
 import { Tooltip } from "react-tooltip";
+import ActiveLink from "./common/ActiveLink";
 
 interface User {
   photoURL: string;
@@ -43,10 +43,10 @@ const Header = () => {
             } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0`}
           >
             <div className='flex flex-col lg:flex-row  gap-4 md:items-center text-base font-medium text-foreground w-full'>
-              <Link to='/'>Home</Link>
-              <Link to='/posts'>Posts</Link>
-              <Link to='/profile'>Profile</Link>
-              <Link to='/about'>About</Link>
+              <ActiveLink to='/'>Home</ActiveLink>
+              <ActiveLink to='/posts'>Posts</ActiveLink>
+              <ActiveLink to='/profile'>Profile</ActiveLink>
+              <ActiveLink to='/about'>About</ActiveLink>
             </div>
           </div>
 
@@ -77,7 +77,7 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link to='/login'>
+                <ActiveLink to='/login'>
                   <Button
                     variant={"default"}
                     className='flex items-center gap-1 rounded-[5px] text-white'
@@ -85,7 +85,7 @@ const Header = () => {
                     <LogIn />
                     Login
                   </Button>
-                </Link>
+                </ActiveLink>
               </>
             )}
           </div>
