@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import useAuth from "@/hooks/useAuth";
+import SocialLogin from "./SocialLogin";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -68,6 +69,7 @@ const Login = () => {
     <div>
       <Wrapper className='flex flex-col md:flex-row items-center justify-center gap-4 '>
         <div className='w-full md:w-1/2'>
+          <SocialLogin />
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}

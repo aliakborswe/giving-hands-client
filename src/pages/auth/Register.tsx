@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router";
 import { formSchema } from "@/utils/authFromSchema";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "react-toastify";
+import SocialLogin from "./SocialLogin";
 
 
 const Register = () => {
@@ -55,6 +56,7 @@ const Register = () => {
     <div>
       <Wrapper className='flex flex-col md:flex-row items-center justify-between gap-4 '>
         <div className='w-full md:w-1/2'>
+          <SocialLogin />
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
