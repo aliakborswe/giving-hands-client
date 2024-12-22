@@ -13,6 +13,8 @@ const Header = () => {
   const { user, logout } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [showLogoutBtn, setShowLogoutBtn] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      setShowLogoutBtn(false);
       navigate("/");
       toast.success("Logout Success!");
     } catch (err: any) {
@@ -47,18 +50,29 @@ const Header = () => {
           </div>
           <div
             className={`${
-              showMenu ? "block bg-white" : "hidden"
-            } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0`}
+              showMenu ? "block" : "hidden"
+            } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0 bg-white lg:bg-transparent`}
           >
             <div className='flex flex-col lg:flex-row  gap-4 md:items-center text-base font-medium text-foreground w-full'>
               <ActiveLink to='/'>Home</ActiveLink>
               <ActiveLink to='/posts'>Posts</ActiveLink>
               <ActiveLink to='/about'>About</ActiveLink>
-              <ActiveLink to='/profile'>Profile</ActiveLink>
+              <div className='relative cursor-pointer'>
+                <p onClick={()=>setShowProfile(!showProfile)}>Profile</p>
+                {showProfile && (
+                  <div className='absolute top-8 border-2 w-56 p-2 bg-white left-0 rounded-xl shadow-lg '>
+                    <ActiveLink to='/addVolunteerNeedPost'>
+                      Add Volunteer Need Post
+                    </ActiveLink>
+                    <ActiveLink to='/myPosts'>My Posts</ActiveLink>
+                  </div>
+                )}
+              </div>
+              {/* TODO:  */}
             </div>
           </div>
 
-          <div className='flex items-center gap-2 text-base font-semibold [&_a]:flex [&_a]:gap-1 '>
+          <div className='flex items-center  gap-10 text-base font-semibold [&_a]:flex [&_a]:gap-1 '>
             <div>
               <button
                 onClick={() =>
@@ -70,30 +84,32 @@ const Header = () => {
               </button>
             </div>
             {user !== null ? (
-              <>
+              <div className='relative'>
                 <div className='z-10'>
                   <img
+                    onClick={() => setShowLogoutBtn(!showLogoutBtn)}
                     src={
                       user?.photoURL ||
                       "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg"
                     }
                     className='w-10 aspect-square rounded-full'
                     alt='photo'
-                    data-tooltip-id='my-tooltip'
-                    data-tooltip-content={user?.displayName || "Name not found"}
-                    data-tooltip-place='top'
                   />
-                  <Tooltip id='my-tooltip' />
                 </div>
-                <Button
-                  onClick={handleLogout}
-                  variant={"default"}
-                  className='flex items-center gap-1 rounded-[5px] text-white'
-                >
-                  <LogOut />
-                  Logout
-                </Button>
-              </>
+                {showLogoutBtn && (
+                  <div className='absolute top-10 right-0 rounded-xl shadow-lg text-center'>
+                    <p>{user?.displayName || "Name not found"}</p>
+                    <Button
+                      onClick={handleLogout}
+                      variant={"default"}
+                      className='flex items-center gap-1 rounded-[5px] text-white'
+                    >
+                      <LogOut />
+                      Logout
+                    </Button>
+                  </div>
+                )}
+              </div>
             ) : (
               <>
                 <ActiveLink to='/login'>
