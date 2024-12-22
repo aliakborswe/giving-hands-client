@@ -1,4 +1,4 @@
-import { LogIn, LogOut, Menu, X } from "lucide-react";
+import { LogIn, LogOut, Menu, Moon, Sun, X } from "lucide-react";
 import logo from "@/assets/svg/logo.svg";
 import { useState } from "react";
 import { Button } from "../../components/ui/button";
@@ -7,12 +7,16 @@ import ActiveLink from "./ActiveLink";
 import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { useTheme } from "@/context/ThemeProvider";
 
 const Header = () => {
   const { user, logout } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
-  const toggleMenu = () => setShowMenu(!showMenu);
+  const { theme, setTheme } = useTheme();
+
   const navigate = useNavigate();
+
+  const toggleMenu = () => setShowMenu(!showMenu);
 
   // handle logout button
   const handleLogout = async () => {
@@ -55,6 +59,16 @@ const Header = () => {
           </div>
 
           <div className='flex items-center gap-2 text-base font-semibold [&_a]:flex [&_a]:gap-1 '>
+            <div>
+              <button
+                onClick={() =>
+                  theme === "light" ? setTheme("dark") : setTheme("light")
+                }
+                className='flex justify-center items-center'
+              >
+                {theme === "light" ? <Sun /> : <Moon />}
+              </button>
+            </div>
             {user !== null ? (
               <>
                 <div className='z-10'>

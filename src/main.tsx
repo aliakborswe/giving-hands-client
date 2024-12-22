@@ -4,12 +4,15 @@ import './index.css'
 import AllRoutes from './routes/routes'
 import { ToastContainer } from "react-toastify";
 import AuthProvider from './context/AuthProvider';
+import ThemeProvider from './context/ThemeProvider';
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AuthProvider>
-      <AllRoutes />
-      <ToastContainer position='bottom-center' />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AllRoutes />
+        <ToastContainer position='bottom-center' />
+      </AuthProvider>
+    </ThemeProvider>
   </StrictMode>
 );
