@@ -5,12 +5,25 @@ import { Button } from "../../components/ui/button";
 import { Tooltip } from "react-tooltip";
 import ActiveLink from "./ActiveLink";
 import useAuth from "@/hooks/useAuth";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Header = () => {
-  const { user } = useAuth();
-  console.log(user);
+  const { user, logout } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
+  const navigate = useNavigate();
+
+  // handle logout button
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+      toast.success("Logout Success!");
+    } catch (err: any) {
+      toast.error(err.message || "Logout Failed");
+    }
+  };
 
   return (
     <header className=''>
@@ -36,8 +49,8 @@ const Header = () => {
             <div className='flex flex-col lg:flex-row  gap-4 md:items-center text-base font-medium text-foreground w-full'>
               <ActiveLink to='/'>Home</ActiveLink>
               <ActiveLink to='/posts'>Posts</ActiveLink>
-              <ActiveLink to='/profile'>Profile</ActiveLink>
               <ActiveLink to='/about'>About</ActiveLink>
+              <ActiveLink to='/profile'>Profile</ActiveLink>
             </div>
           </div>
 
@@ -53,12 +66,13 @@ const Header = () => {
                     className='w-10 aspect-square rounded-full'
                     alt='photo'
                     data-tooltip-id='my-tooltip'
-                    data-tooltip-content={user?.displayName}
+                    data-tooltip-content={user?.displayName || "Name not found"}
                     data-tooltip-place='top'
                   />
                   <Tooltip id='my-tooltip' />
                 </div>
                 <Button
+                  onClick={handleLogout}
                   variant={"default"}
                   className='flex items-center gap-1 rounded-[5px] text-white'
                 >

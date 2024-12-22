@@ -13,14 +13,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { formSchema } from "@/utils/authFromSchema";
 import useAuth from "@/hooks/useAuth";
-import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 
 const Register = () => {
   const { createUser } = useAuth();
+  const navigate = useNavigate();
   // Define form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,18 +41,15 @@ const Register = () => {
       createUser(email, password)
         .then((result) => {
             console.log(result)
+            form.reset();
+            navigate("/");
         })
         .catch((err) => {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: err.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          toast.error(err.message);
         });
     }
   }
+
 
   return (
     <div>

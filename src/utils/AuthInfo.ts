@@ -7,4 +7,6 @@ export type AuthInfo = {
   createUser?: (email: string, password: string) => Promise<UserCredential>;
   loading?: boolean;
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  login: (email: string, password: string) => Promise<UserCredential>;
+  logout: () => Promise<void>;
 };
