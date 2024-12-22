@@ -49,7 +49,10 @@ const AuthProvider = ({ children }: Props) => {
     return signOut(auth);
   };
 
-
+  //update user information
+  const updateUserProfile = (updateInfo: object) => {
+    return updateProfile(auth.currentUser as User, updateInfo);
+  };
 
   // observer auth state change
   useEffect(() => {

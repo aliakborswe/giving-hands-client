@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 import {
   Form,
   FormControl,
@@ -18,11 +19,12 @@ import { formSchema } from "@/utils/authFromSchema";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "react-toastify";
 import SocialLogin from "./SocialLogin";
-
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const Register = () => {
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   // Define form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,19 +40,35 @@ const Register = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const email = values.email;
     const password = values.password;
+    const updatedUser = { displayName: values.name, photoURL: values.photoURL }; // for firebase user profile update
+
     if (createUser) {
       createUser(email, password)
-        .then((result) => {
-            console.log(result)
-            form.reset();
-            navigate("/");
+        .then(() => {
+          // backend api call for user registration
+          const user = {
+            name: values.name,
+            email: email,
+            photoURL: values.photoURL,
+            password: password,
+          };
+          axiosSecure
+            .post("/users", user)
+            .then(() => {
+              toast.success("Register Success!");
+            })
+            .catch((err) => {
+              toast.error(err.message);
+            });
+          updateUserProfile(updatedUser);
+          form.reset();
+          navigate("/");
         })
         .catch((err) => {
           toast.error(err.message);
         });
     }
   }
-
 
   return (
     <div>
