@@ -1,20 +1,22 @@
-import Wrapper from "@/components/common/Wrapper";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import Wrapper from "@/pages/common/Wrapper";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Link } from "react-router";
 import { formSchema } from "@/utils/authFromSchema";
 
-
-
-
-
 const Register = () => {
-
   // Define form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -25,8 +27,6 @@ const Register = () => {
       password: "",
     },
   });
-
-   
 
   return (
     <div>

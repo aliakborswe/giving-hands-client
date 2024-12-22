@@ -1,4 +1,3 @@
-
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,16 +14,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router";
-import Wrapper from "@/components/common/Wrapper";
+import Wrapper from "@/pages/common/Wrapper";
 import { formSchema } from "@/utils/authFromSchema";
 
-
-
 const Login = () => {
-
-
-
-
   // Define form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

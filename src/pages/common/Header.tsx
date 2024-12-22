@@ -1,25 +1,18 @@
-
-import { LogIn, LogOut, Menu, User, X } from "lucide-react";
+import { LogIn, LogOut, Menu, X } from "lucide-react";
 import logo from "@/assets/svg/logo.svg";
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../../components/ui/button";
 import { Tooltip } from "react-tooltip";
-import ActiveLink from "./common/ActiveLink";
-
-interface User {
-  photoURL: string;
-  displayName: string;
-}
-
-
+import ActiveLink from "./ActiveLink";
+import useAuth from "@/hooks/useAuth";
 
 
 
 const Header = () => {
-  const [user, setUser] = useState<User>(null);
+  const {user} = useAuth()
+  console.log(user)
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
-
 
   return (
     <header className=''>
