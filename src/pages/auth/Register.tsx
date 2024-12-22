@@ -15,8 +15,12 @@ import { Input } from "@/components/ui/input";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Link } from "react-router";
 import { formSchema } from "@/utils/authFromSchema";
+import useAuth from "@/hooks/useAuth";
+import Swal from "sweetalert2";
+
 
 const Register = () => {
+  const { createUser } = useAuth();
   // Define form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -28,12 +32,36 @@ const Register = () => {
     },
   });
 
+  // Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    const email = values.email;
+    const password = values.password;
+    if (createUser) {
+      createUser(email, password)
+        .then((result) => {
+            console.log(result)
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: err.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    }
+  }
+
   return (
     <div>
       <Wrapper className='flex flex-col md:flex-row items-center justify-between gap-4 '>
         <div className='w-full md:w-1/2'>
           <Form {...form}>
-            <form className='space-y-8 border-t-2 border-primary pt-6'>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className='space-y-8 border-t-2 border-primary pt-6'
+            >
               <FormField
                 control={form.control}
                 name='name'

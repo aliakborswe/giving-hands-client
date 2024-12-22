@@ -6,11 +6,9 @@ import { Tooltip } from "react-tooltip";
 import ActiveLink from "./ActiveLink";
 import useAuth from "@/hooks/useAuth";
 
-
-
 const Header = () => {
-  const {user} = useAuth()
-  console.log(user)
+  const { user } = useAuth();
+  console.log(user);
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
 
