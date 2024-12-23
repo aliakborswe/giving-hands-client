@@ -8,10 +8,14 @@ import Home from "@/pages/home/Home";
 import MyPosts from "@/pages/myPosts/MyPosts";
 import Posts from "@/pages/posts/Posts";
 import { BrowserRouter, Route, Routes } from "react-router";
+import PrivetRoute from "./privetRoute";
+import useAuth from "@/hooks/useAuth";
 
 
 
 const AllRoutes = () => {
+  const { user } = useAuth();
+  const isAuthenticated = Boolean(user?.email);
     return (
       <BrowserRouter>
         <Routes>
@@ -23,9 +27,19 @@ const AllRoutes = () => {
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
             {/* Privet routes */}
-            <Route>
-              <Route path='addVolunteerNeedPost' element={<AddVolunteerNeedPost/>} />
-              <Route path='myPosts' element={<MyPosts/>} />
+            <Route
+              element={
+                <PrivetRoute
+                  isAuthenticated={isAuthenticated}
+                  redirectPath='/login'
+                />
+              }
+            >
+              <Route
+                path='addVolunteerNeedPost'
+                element={<AddVolunteerNeedPost />}
+              />
+              <Route path='myPosts' element={<MyPosts />} />
             </Route>
           </Route>
           {/* error route without header and footer */}
