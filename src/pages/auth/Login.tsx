@@ -54,8 +54,7 @@ const Login = () => {
   // Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     login(values.email, values.password)
-      .then((result) => {
-        console.log(result);
+      .then(() => {
         toast.success("Login Success!");
         navigate(from, { replace: true });
         form.reset();

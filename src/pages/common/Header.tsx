@@ -2,12 +2,11 @@ import { LogIn, LogOut, Menu, Moon, Sun, X } from "lucide-react";
 import logo from "@/assets/svg/logo.svg";
 import { useState } from "react";
 import { Button } from "../../components/ui/button";
-import { Tooltip } from "react-tooltip";
 import ActiveLink from "./ActiveLink";
-import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useTheme } from "@/context/ThemeProvider";
+import useAuth from "@/hooks/useAuth";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -58,7 +57,7 @@ const Header = () => {
               <ActiveLink to='/posts'>Posts</ActiveLink>
               <ActiveLink to='/about'>About</ActiveLink>
               <div className='relative cursor-pointer'>
-                <p onClick={()=>setShowProfile(!showProfile)}>Profile</p>
+                <p onClick={() => setShowProfile(!showProfile)}>Profile</p>
                 {showProfile && (
                   <div className='absolute top-8 border-2 w-56 p-2 bg-white left-0 rounded-xl shadow-lg '>
                     <ActiveLink to='/addVolunteerNeedPost'>
@@ -68,7 +67,6 @@ const Header = () => {
                   </div>
                 )}
               </div>
-              {/* TODO:  */}
             </div>
           </div>
 
@@ -84,31 +82,29 @@ const Header = () => {
               </button>
             </div>
             {user !== null ? (
-              <div className='relative'>
-                <div className='z-10'>
+              <div className='relative group'>
+                <div className='z-10 '>
                   <img
                     onClick={() => setShowLogoutBtn(!showLogoutBtn)}
                     src={
                       user?.photoURL ||
                       "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg"
                     }
-                    className='w-10 aspect-square rounded-full'
+                    className='w-10 aspect-square rounded-full '
                     alt='photo'
                   />
                 </div>
-                {showLogoutBtn && (
-                  <div className='absolute top-10 right-0 rounded-xl shadow-lg text-center'>
-                    <p>{user?.displayName || "Name not found"}</p>
-                    <Button
-                      onClick={handleLogout}
-                      variant={"default"}
-                      className='flex items-center gap-1 rounded-[5px] text-white'
-                    >
-                      <LogOut />
-                      Logout
-                    </Button>
-                  </div>
-                )}
+                <div className='absolute hidden group-hover:block top-10 right-0 rounded-xl shadow-lg'>
+                  <p className="text-end">{user?.displayName || "Name not found"}</p>
+                  <Button
+                    onClick={handleLogout}
+                    variant={"default"}
+                    className='flex items-center gap-1 rounded-[5px] text-white'
+                  >
+                    <LogOut />
+                    Logout
+                  </Button>
+                </div>
               </div>
             ) : (
               <>

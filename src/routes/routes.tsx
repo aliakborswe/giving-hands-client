@@ -1,13 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import MainLayout from "@/layouts/MainLayout";
 import ErrorPage from "@/error-page";
-import Register from "@/pages/auth/Register";
-import Login from "@/pages/auth/Login";
-import Home from "@/pages/home/Home";
-import Posts from "@/pages/posts/Posts";
+import MainLayout from "@/layouts/MainLayout";
 import About from "@/pages/about/About";
 import AddVolunteerNeedPost from "@/pages/addVolunteerNeedPost/AddVolunteerNeedPost";
+import Login from "@/pages/auth/Login";
+import Register from "@/pages/auth/Register";
+import Home from "@/pages/home/Home";
 import MyPosts from "@/pages/myPosts/MyPosts";
+import Posts from "@/pages/posts/Posts";
+import { BrowserRouter, Route, Routes } from "react-router";
+
+
 
 const AllRoutes = () => {
     return (

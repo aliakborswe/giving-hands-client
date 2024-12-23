@@ -17,7 +17,7 @@ const SocialLogin = () => {
         toast.success("Success to login");
         navigate(from, { replace: true });
       })
-      .catch((err) => {
+      .catch((err:any) => {
         toast.error(err.message);
       });
   };

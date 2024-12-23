@@ -4,9 +4,11 @@ import { Outlet } from "react-router";
 
 const MainLayout = () => {
   return (
-    <div className='bg-background h-screen'>
+    <div className='bg-background'>
       <Header />
-      <Outlet />
+      <div className="min-h-screen">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

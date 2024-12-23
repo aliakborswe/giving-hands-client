@@ -1,24 +1,19 @@
-import Wrapper from "@/pages/common/Wrapper";
-import { zodResolver } from "@hookform/resolvers/zod";
+import useAuth from "@/hooks/useAuth";
+import Wrapper from "../common/Wrapper";
+import { Link, useNavigate } from "react-router";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { Link, useNavigate } from "react-router";
 import { formSchema } from "@/utils/authFromSchema";
-import useAuth from "@/hooks/useAuth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import SocialLogin from "./SocialLogin";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
@@ -56,14 +51,14 @@ const Register = () => {
             .then(() => {
               toast.success("Register Success!");
             })
-            .catch((err) => {
+            .catch((err:any) => {
               toast.error(err.message);
             });
           updateUserProfile(updatedUser);
           form.reset();
           navigate("/");
         })
-        .catch((err) => {
+        .catch((err:any) => {
           toast.error(err.message);
         });
     }

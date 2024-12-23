@@ -1,5 +1,5 @@
 import AuthContext from "@/context/AuthContext";
-import { AuthInfo } from "@/utils/authInfo";
+import { AuthInfo } from "@/utils/AuthInfo";
 import { useContext } from "react";
 
 

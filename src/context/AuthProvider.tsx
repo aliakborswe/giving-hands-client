@@ -1,4 +1,4 @@
-import { AuthInfo } from "@/utils/authInfo";
+
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -58,8 +58,8 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user as User);
-      console.log("user from observer", user);
       setLoading(false);
+      console.log("user from observer", user);
     });
     return () => {
       unsubscribe();
@@ -67,7 +67,7 @@ const AuthProvider = ({ children }: Props) => {
   }, []);
 
   // provider value
-  const authValue: AuthInfo = {
+  const authValue = {
     user,
     setUser,
     createUser,
