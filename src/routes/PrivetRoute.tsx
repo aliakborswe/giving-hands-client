@@ -2,7 +2,6 @@ import useAuth from "@/hooks/useAuth";
 import Spinner from "@/pages/common/Spinner";
 import { Navigate, Outlet, useLocation } from "react-router";
 
-
 interface PrivateRouteProps {
   isAuthenticated: boolean;
   redirectPath?: string;
