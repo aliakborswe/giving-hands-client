@@ -5,24 +5,32 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import PostCard from "../common/PostCard";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
+import Spinner from "../common/Spinner";
 
 
 const VolunterNeedNow = () => {
       const [posts, setPosts] = useState<Post[]>([]);
       const axiosSecure = useAxiosSecure();
-
+      const [loading, setLoading] = useState(false)
       useEffect(() => {
         const fetchPosts = async () => {
+          setLoading(true)
           try {
             const res = await axiosSecure.get(`/posts?limit=6`);
             setPosts(res.data);
           } catch (err) {
             console.error(err);
+          }finally{
+            setLoading(false)
           }
         };
 
         fetchPosts();
       }, [axiosSecure]);
+
+        if (loading) {
+          return <Spinner />;
+        }
     return (
       <Wrapper>
         <h1 className='text-center text-xl md:text-2xl lg:text-3xl font-bold pb-8'>

@@ -6,10 +6,12 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import Home from "@/pages/home/Home";
 import MyPosts from "@/pages/myPosts/MyPosts";
-import Posts from "@/pages/AllpostPage/Posts";
+import Posts from "@/pages/allpostPage/Posts";
 import { BrowserRouter, Route, Routes } from "react-router";
 import PrivetRoute from "./PrivetRoute";
 import useAuth from "@/hooks/useAuth";
+import PostDetailsPage from "@/pages/postDetailsPage/postDetailsPage";
+import ApplicationPage from "@/pages/applicationPage/applicationPage";
 
 
 
@@ -40,6 +42,8 @@ const AllRoutes = () => {
                 element={<AddVolunteerNeedPost />}
               />
               <Route path='myPosts' element={<MyPosts />} />
+              <Route path='posts/:id' element={<PostDetailsPage />} />
+              <Route path="application/:id" element={<ApplicationPage />} />
             </Route>
           </Route>
           {/* error route without header and footer */}
