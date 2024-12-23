@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import useAuth from "@/hooks/useAuth";
 import Wrapper from "../common/Wrapper";
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { addVolunteerNeedPostSchema } from "@/utils/addVolunteerNeedPostSchema";
@@ -24,10 +25,33 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { DateRange } from "react-day-picker";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const AddVolunteerNeedPost = () => {
-    const { user } = useAuth();
-    const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  // For the date range
+  const [dateRange, setDateRange] = useState<{
+    from: Date | undefined;
+    to: Date | undefined;
+  }>({
+    from: undefined,
+    to: undefined,
+  });
 
   // Define form.
   const form = useForm<z.infer<typeof addVolunteerNeedPostSchema>>({
@@ -39,16 +63,76 @@ const AddVolunteerNeedPost = () => {
       category: "Social",
       location: "",
       volunteersNeeded: 1,
-      deadline: "",
+      deadline: " ",
       organizerName: user?.displayName || "",
       organizerEmail: user?.email || "",
     },
   });
 
+  useEffect(() => {
+    if (user) {
+      if (user.displayName && user.email) {
+        form.setValue("organizerName", user.displayName);
+        form.setValue("organizerEmail", user.email);
+      }
+    }
+  }, [user]);
+
   // Define a submit handler.
- function onSubmit(data: z.infer<typeof addVolunteerNeedPostSchema>) {
-    console.log(data)
+  function onSubmit(data: z.infer<typeof addVolunteerNeedPostSchema>) {
+    setIsSubmitting(true);
+    try {
+      const postData = {
+        ...data,
+      };
+      axiosSecure
+        .post("/posts", postData)
+        .then(() => {
+          toast.success("Post added successfully");
+          form.reset();
+          setIsSubmitting(false);
+          navigate("/");
+        })
+        .catch((err) => {
+          toast.error(err.message);
+          setIsSubmitting(false);
+        });
+    } catch (error: any) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
+
+  // Format deadline value
+  const formattedDeadline =
+    dateRange.from && dateRange.to
+      ? `${format(dateRange.from, "yyyy-MM-dd")} to ${format(
+          dateRange.to,
+          "yyyy-MM-dd"
+        )}`
+      : "Select a deadline range";
+
+  //   Update deadline in the form whenever the date range changes
+  useEffect(() => {
+    if (dateRange.from && dateRange.to) {
+      const deadlineValue = `${format(
+        dateRange.from,
+        "yyyy-MM-dd"
+      )} to ${format(dateRange.to, "yyyy-MM-dd")}`;
+      form.setValue("deadline", deadlineValue);
+    }
+  }, [dateRange, form]);
+
+  //   Handle date range selection
+  const handleDateRangeSelect = (range: DateRange | undefined) => {
+    if (range) {
+      setDateRange({
+        from: range.from || undefined,
+        to: range.to || undefined,
+      });
+    }
+  };
 
   return (
     <Wrapper>
@@ -176,30 +260,48 @@ const AddVolunteerNeedPost = () => {
                     placeholder='Enter volunteers Needed'
                     {...field}
                     className='border-foreground'
-                    //   onChange={(e) => field.onChange(Number(e.target.value))}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
+          {/* Date Range Picker */}
           <FormField
             control={form.control}
             name='deadline'
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>Deadline</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    className='border-foreground'
-                    placeholder='yy-mm-dd'
-                  />
-                </FormControl>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant='outline'
+                        className='w-full justify-between border-foreground'
+                      >
+                        {formattedDeadline}
+                        <CalendarIcon className='ml-2 h-4 w-4' />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent align='start' className='w-auto p-0'>
+                    <Calendar
+                      mode='range'
+                      selected={dateRange}
+                      onSelect={handleDateRangeSelect}
+                      numberOfMonths={2}
+                      className='p-2'
+                    />
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='organizerName'
