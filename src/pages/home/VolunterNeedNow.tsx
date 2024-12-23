@@ -3,6 +3,8 @@ import Wrapper from "../common/Wrapper";
 import { Post } from "@/utils/PostInterface";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import PostCard from "../common/PostCard";
+import { Link } from "react-router";
+import { Button } from "@/components/ui/button";
 
 
 const VolunterNeedNow = () => {
@@ -30,6 +32,13 @@ const VolunterNeedNow = () => {
           {posts.map((post) => (
             <PostCard key={post._id} post={post} />
           ))}
+        </div>
+        <div className="flex justify-center mt-6">
+          <Link to={`/posts`}>
+            <Button variant={"secondary"} size={"lg"} className='text-white'>
+              See all button
+            </Button>
+          </Link>
         </div>
       </Wrapper>
     );
