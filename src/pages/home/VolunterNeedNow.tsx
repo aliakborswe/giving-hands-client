@@ -36,7 +36,7 @@ const VolunterNeedNow = () => {
         <div className="flex justify-center mt-6">
           <Link to={`/posts`}>
             <Button variant={"secondary"} size={"lg"} className='text-white'>
-              See all button
+              See all Post
             </Button>
           </Link>
         </div>
