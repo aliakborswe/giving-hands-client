@@ -37,13 +37,14 @@ import { DateRange } from "react-day-picker";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const UpdateVolunteerNeedPost = () => {
   const { user } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const {id} = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
 
   // For the date range
   const [dateRange, setDateRange] = useState<{
@@ -95,7 +96,7 @@ const UpdateVolunteerNeedPost = () => {
       } catch (error: any) {
         toast.error(error.message);
       }
-    }
+    };
     fetchPost();
   }, [user]);
 
@@ -157,6 +158,9 @@ const UpdateVolunteerNeedPost = () => {
 
   return (
     <Wrapper>
+      <Helmet>
+        <title>Giving-Hands | Update Volunteer Need Post</title>
+      </Helmet>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

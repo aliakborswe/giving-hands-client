@@ -7,11 +7,19 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const applicationSchema = z.object({
   organizerName: z.string().min(1, "Organizer name is required"),
@@ -20,13 +28,11 @@ const applicationSchema = z.object({
   requestStatus: z.enum(["requested", "approved", "rejected"]),
 });
 
-
-
 const AddApplication = () => {
-    const { user } = useAuth();
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const axiosSecure = useAxiosSecure();
-    const { id } = useParams<{ id: string }>(); 
+  const { user } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   // Define form.
@@ -53,13 +59,13 @@ const AddApplication = () => {
   function onSubmit(data: z.infer<typeof applicationSchema>) {
     setIsSubmitting(true);
 
-    try{
+    try {
       axiosSecure
         .post("/applications", { id, ...data })
         .then(() => {
           toast.success("Application added successfully");
-            form.reset();
-            navigate("/");
+          form.reset();
+          navigate("/");
         })
         .catch(() => {
           toast.error("Application already exists");
@@ -71,11 +77,11 @@ const AddApplication = () => {
     setIsSubmitting(false);
   }
 
-
-
-
   return (
     <Wrapper>
+      <Helmet>
+        <title>Giving-Hands | Volunteer Application</title>
+      </Helmet>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

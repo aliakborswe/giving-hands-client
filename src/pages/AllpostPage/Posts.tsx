@@ -5,13 +5,14 @@ import { Post } from "@/utils/PostInterface";
 import PostCard from "../common/PostCard";
 import Spinner from "../common/Spinner";
 import { Input } from "@/components/ui/input";
+import { Helmet } from "react-helmet-async";
 
 const Posts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  console.log(search)
+  console.log(search);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -28,7 +29,9 @@ const Posts = () => {
     fetchPosts();
   }, [axiosSecure]);
 
-  const filteredPosts = posts.filter((post) => post.postTitle.toLowerCase().includes(search.toLowerCase()));
+  const filteredPosts = posts.filter((post) =>
+    post.postTitle.toLowerCase().includes(search.toLowerCase())
+  );
 
   if (loading) {
     return <Spinner />;
@@ -36,6 +39,9 @@ const Posts = () => {
 
   return (
     <Wrapper>
+      <Helmet>
+        <title>Giving-Hands | All Need Volunteer Post</title>
+      </Helmet>
       <h1 className='text-center text-xl md:text-2xl lg:text-3xl font-bold pb-8'>
         All Need Volunteer Post
       </h1>

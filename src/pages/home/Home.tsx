@@ -1,11 +1,15 @@
+import { Helmet } from "react-helmet-async";
 import VolunterNeedNow from "./VolunterNeedNow";
 
 
 const Home = () => {
     return (
-        <div>
-            <VolunterNeedNow/>
-        </div>
+      <div>
+        <Helmet>
+          <title>Giving-Hands | Home</title>
+        </Helmet>
+        <VolunterNeedNow />
+      </div>
     );
 };
 

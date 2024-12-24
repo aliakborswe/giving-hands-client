@@ -37,6 +37,7 @@ import { DateRange } from "react-day-picker";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const AddVolunteerNeedPost = () => {
   const { user } = useAuth();
@@ -135,6 +136,9 @@ const AddVolunteerNeedPost = () => {
 
   return (
     <Wrapper>
+      <Helmet>
+        <title>Giving-Hands | Add Volunteer Need Post</title>
+      </Helmet>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -244,10 +248,7 @@ const AddVolunteerNeedPost = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {[
-                      "Ongoing",
-                      "Closed"
-                    ].map((category) => (
+                    {["Ongoing", "Closed"].map((category) => (
                       <SelectItem key={category} value={category}>
                         {category}
                       </SelectItem>

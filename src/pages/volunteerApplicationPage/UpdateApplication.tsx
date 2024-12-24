@@ -19,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const applicationSchema = z.object({
   organizerName: z.string().min(1, "Organizer name is required"),
@@ -90,6 +91,9 @@ const UpdateApplication = () => {
 
   return (
     <Wrapper>
+      <Helmet>
+        <title>Giving-Hands | Update Volunteer Application</title>
+      </Helmet>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

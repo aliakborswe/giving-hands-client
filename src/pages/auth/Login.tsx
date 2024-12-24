@@ -18,6 +18,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import useAuth from "@/hooks/useAuth";
 import SocialLogin from "./SocialLogin";
+import { Helmet } from "react-helmet-async";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -37,7 +38,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
-    const {login} = useAuth();
+  const { login } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -65,74 +66,75 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <Wrapper className='flex flex-col md:flex-row items-center justify-center gap-4 '>
-        <div className='w-full md:w-1/2'>
-          <SocialLogin />
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className='space-y-8 border-t-2 border-primary pt-6'
-            >
-              <FormField
-                control={form.control}
-                name='email'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder='Enter Your email'
-                        {...field}
-                        className='border-foreground'
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='password'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder='Enter password'
-                        type='password'
-                        {...field}
-                        className='border-foreground'
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <Wrapper className='flex flex-col md:flex-row items-center justify-center gap-4 '>
+      <Helmet>
+        <title>Giving-Hands | Login</title>
+      </Helmet>
+      <div className='w-full md:w-1/2'>
+        <SocialLogin />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className='space-y-8 border-t-2 border-primary pt-6'
+          >
+            <FormField
+              control={form.control}
+              name='email'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder='Enter Your email'
+                      {...field}
+                      className='border-foreground'
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='password'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder='Enter password'
+                      type='password'
+                      {...field}
+                      className='border-foreground'
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <Button type='submit' className='w-full'>
-                Login
-              </Button>
-            </form>
-          </Form>
-          <p className='mt-8 text-start text-muted-foreground'>
-            Not a member?{" "}
-            <Link
-              to='/register'
-              className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
-            >
-              Please register first
-            </Link>
-          </p>
-        </div>
-        <DotLottieReact
-          src='https://lottie.host/b05cbd0b-a072-4614-88e6-ba08663ae6f8/WLR1nXaiBs.lottie'
-          loop
-          autoplay
-          className='w-full md:w-1/2 aspect-square'
-        />
-      </Wrapper>
-    </div>
+            <Button type='submit' className='w-full'>
+              Login
+            </Button>
+          </form>
+        </Form>
+        <p className='mt-8 text-start text-muted-foreground'>
+          Not a member?{" "}
+          <Link
+            to='/register'
+            className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
+          >
+            Please register first
+          </Link>
+        </p>
+      </div>
+      <DotLottieReact
+        src='https://lottie.host/b05cbd0b-a072-4614-88e6-ba08663ae6f8/WLR1nXaiBs.lottie'
+        loop
+        autoplay
+        className='w-full md:w-1/2 aspect-square'
+      />
+    </Wrapper>
   );
 };
 

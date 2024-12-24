@@ -5,13 +5,16 @@ import AllRoutes from './routes/routes'
 import { ToastContainer } from "react-toastify";
 import AuthProvider from './context/AuthProvider';
 import ThemeProvider from './context/ThemeProvider';
+import { HelmetProvider } from "react-helmet-async";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
       <AuthProvider>
-        <AllRoutes />
-        <ToastContainer position='bottom-center' />
+        <HelmetProvider>
+          <AllRoutes />
+          <ToastContainer position='bottom-center' />
+        </HelmetProvider>
       </AuthProvider>
     </ThemeProvider>
   </StrictMode>

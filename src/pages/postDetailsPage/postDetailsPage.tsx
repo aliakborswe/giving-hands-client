@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Post } from "@/utils/PostInterface";
 import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const PostDetailsPage = () => {
   const [post, setPost] = useState<Post | null>(null);
@@ -54,6 +55,9 @@ const PostDetailsPage = () => {
   }
   return (
     <Wrapper>
+      <Helmet>
+        <title>Giving-Hands | Details Volunteer Post</title>
+      </Helmet>
       <Card>
         <CardContent className='p-4 flex flex-col lg:flex-row gap-4 justify-center items-center'>
           <div className='w-full lg:w-1/2 lg:h-full mb-4 '>
