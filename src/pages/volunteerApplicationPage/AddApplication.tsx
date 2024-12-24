@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
 
 const applicationSchema = z.object({
   organizerName: z.string().min(1, "Organizer name is required"),
@@ -25,7 +26,7 @@ const AddApplication = () => {
     const { user } = useAuth();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const axiosSecure = useAxiosSecure();
-    const { id } = useParams<{ id: string }>(); // TODO: this id is postId: id // status: requestStatus
+    const { id } = useParams<{ id: string }>(); 
   const navigate = useNavigate();
 
   // Define form.
@@ -51,11 +52,21 @@ const AddApplication = () => {
   // Define a submit handler.
   function onSubmit(data: z.infer<typeof applicationSchema>) {
     setIsSubmitting(true);
-    const postData = {
-      postId: id,
-      ...data,
-    };
-    console.log(postData);
+
+    try{
+      axiosSecure
+        .post("/application", { id, ...data })
+        .then(() => {
+          toast.success("Application added successfully");
+            form.reset();
+            navigate("/");
+        })
+        .catch(() => {
+          toast.error("Application already exists");
+        });
+    } catch (error: any) {
+      toast.error(error.message);
+    }
 
     setIsSubmitting(false);
   }
