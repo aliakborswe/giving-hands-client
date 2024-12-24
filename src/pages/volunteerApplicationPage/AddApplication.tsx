@@ -55,7 +55,7 @@ const AddApplication = () => {
 
     try{
       axiosSecure
-        .post("/application", { id, ...data })
+        .post("/applications", { id, ...data })
         .then(() => {
           toast.success("Application added successfully");
             form.reset();
