@@ -17,7 +17,6 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useAuth from "@/hooks/useAuth";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
-import Wrapper from "../common/Wrapper";
 
 const PostDataTable = () => {
   const [isGridView, setIsGridView] = useState(false);
@@ -97,16 +96,13 @@ const PostDataTable = () => {
   }
   if (posts.length === 0) {
     return (
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center '>
         <h1 className='text-3xl font-bold'>No data found</h1>
       </div>
     );
   }
   return (
-    <Wrapper>
-      <h1 className='text-center text-xl md:text-2xl lg:text-3xl font-bold pb-8 border-b border-primary mb-4'>
-        My Volunteer Need Posts
-      </h1>
+    <>
       <div className='flex justify-end mb-4'>
         <Button
           variant='outline'
@@ -243,7 +239,7 @@ const PostDataTable = () => {
           </Table>
         </>
       )}
-    </Wrapper>
+    </>
   );
 };
 

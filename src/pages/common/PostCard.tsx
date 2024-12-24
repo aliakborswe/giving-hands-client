@@ -43,6 +43,10 @@ const PostCard = ({post}: Prop) => {
                 {post.status}
               </span>
             </div>
+            <div>
+              <span>Volunteers Needed: </span>
+              {post.volunteersNeeded}
+            </div>
           </div>
         </CardContent>
         <CardFooter className='px-4'>
