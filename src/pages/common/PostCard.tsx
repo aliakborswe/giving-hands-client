@@ -33,6 +33,16 @@ const PostCard = ({post}: Prop) => {
               <span>Location:</span>
               {post.location}
             </div>
+            <div>
+              <strong>Status: </strong>
+              <span
+                className={`bg-${
+                  post.status === "Ongoing" ? "green" : "red"
+                }-500 py-0.5 px-3 rounded-sm`}
+              >
+                {post.status}
+              </span>
+            </div>
           </div>
         </CardContent>
         <CardFooter className='px-4'>

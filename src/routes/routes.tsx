@@ -11,8 +11,8 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import PrivetRoute from "./PrivetRoute";
 import useAuth from "@/hooks/useAuth";
 import PostDetailsPage from "@/pages/postDetailsPage/postDetailsPage";
-import ApplicationPage from "@/pages/applicationPage/applicationPage";
 import UpdateVolunteerNeedPost from "@/pages/volunteerNeedPost/UpdateVolunteerNeedPost";
+import AddApplication from "@/pages/volunteerApplicationPage/AddApplication";
 
 
 
@@ -48,7 +48,7 @@ const AllRoutes = () => {
               />
               <Route path='myPosts' element={<MyPosts />} />
               <Route path='posts/:id' element={<PostDetailsPage />} />
-              <Route path="application/:id" element={<ApplicationPage />} />
+              <Route path='application/:id' element={<AddApplication />} />
             </Route>
           </Route>
           {/* error route without header and footer */}

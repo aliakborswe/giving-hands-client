@@ -91,12 +91,10 @@ const AddVolunteerNeedPost = () => {
         .then(() => {
           toast.success("Post added successfully");
           form.reset();
-          setIsSubmitting(false);
           navigate("/");
         })
         .catch((err) => {
           toast.error(err.message);
-          setIsSubmitting(false);
         });
     } catch (error: any) {
       toast.error(error.message);
