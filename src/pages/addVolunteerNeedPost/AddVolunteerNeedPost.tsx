@@ -61,6 +61,7 @@ const AddVolunteerNeedPost = () => {
       postTitle: "",
       description: "",
       category: "Social",
+      status: "Ongoing",
       location: "",
       volunteersNeeded: 1,
       deadline: " ",
@@ -98,7 +99,7 @@ const AddVolunteerNeedPost = () => {
           setIsSubmitting(false);
         });
     } catch (error: any) {
-      toast.error("Something went wrong");
+      toast.error(error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -218,6 +219,36 @@ const AddVolunteerNeedPost = () => {
                       "Environment",
                       "Animals",
                       "Others",
+                    ].map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='status'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>status</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className='border-foreground'>
+                      <SelectValue placeholder='Select a category' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {[
+                      "Ongoing",
+                      "Closed"
                     ].map((category) => (
                       <SelectItem key={category} value={category}>
                         {category}

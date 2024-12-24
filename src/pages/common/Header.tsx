@@ -63,7 +63,7 @@ const Header = () => {
                     <ActiveLink to='/addVolunteerNeedPost'>
                       Add Volunteer Need Post
                     </ActiveLink>
-                    <ActiveLink to='/myPosts'>My Posts</ActiveLink>
+                    <ActiveLink to='/myPosts'>Manage My Posts</ActiveLink>
                   </div>
                 )}
               </div>
@@ -95,7 +95,7 @@ const Header = () => {
                   />
                 </div>
                 <div className='absolute hidden group-hover:block top-10 right-0 rounded-xl shadow-lg'>
-                  <p className="text-end">{user?.displayName || "Name not found"}</p>
+                  <p className="text-end text-sm">{user?.displayName || "Name not found"}</p>
                   <Button
                     onClick={handleLogout}
                     variant={"default"}

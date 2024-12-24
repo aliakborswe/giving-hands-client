@@ -4,6 +4,7 @@ export interface Post {
   postTitle: string,
   description: string,
   category: string,
+  status: string,
   location: string,
   volunteersNeeded: number,
   deadline: string,

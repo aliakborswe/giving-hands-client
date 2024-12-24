@@ -40,7 +40,7 @@ const PostDetailsPage = () => {
      }
     return (
       <Wrapper>
-        <Card >
+        <Card>
           <CardContent className='p-4 flex flex-col lg:flex-row gap-4 justify-center items-center'>
             <div className='w-full lg:w-1/2 lg:h-full mb-4 '>
               <img
@@ -50,34 +50,38 @@ const PostDetailsPage = () => {
               />
             </div>
             <div className=' w-full lg:w-1/2 text-text'>
-                <div className='text-base flex justify-center gap-2 bg-secondary text-white w-44 p-2 rounded-tl-2xl rounded-br-2xl shadow-lg [&_span]:font-semibold'>
-                  <span>Category:</span>
-                  {post.category}
+              <div className='text-sm flex justify-center gap-2 bg-secondary text-white w-44 p-2 rounded-tl-2xl rounded-br-2xl shadow-lg [&_span]:font-semibold'>
+                <span>Category:</span>
+                {post.category}
+              </div>
+              <h3 className='text-xl font-bold my-2'>{post.postTitle}</h3>
+              <div className='text-base [&_span]:font-semibold space-y-2 '>
+                <div>
+                  <span>Deadline: </span>
+                  {post.deadline}
                 </div>
-                <h3 className='text-xl font-bold my-2'>{post.postTitle}</h3>
-                <div className='text-base [&_span]:font-semibold space-y-2 '>
-                  <div >
-                    <span>Deadline: </span>
-                    {post.deadline}
-                  </div>
-                  <div>
-                    <span>Location: </span>
-                    {post.location}
-                  </div>
-                  <div>
-                    <span>Organizer Email: </span>
-                    {post.organizerEmail}
-                  </div>
-                  <div>
-                    <span>Organizer Name: </span>
-                    {post.organizerName}
-                  </div>
-                  <div>
-                    <span>Volunteers Needed: </span>
-                    {post.volunteersNeeded}
-                  </div>
+                <div>
+                  <span>Location: </span>
+                  {post.location}
                 </div>
-                <p className="py-2">{post.description}</p>
+                <div>
+                  <span>Organizer Email: </span>
+                  {post.organizerEmail}
+                </div>
+                <div>
+                  <span>Organizer Name: </span>
+                  {post.organizerName}
+                </div>
+                <div>
+                  <span>Status: </span>
+                  {post.status}
+                </div>
+                <div>
+                  <span>Volunteers Needed: </span>
+                  {post.volunteersNeeded}
+                </div>
+              </div>
+              <p className='py-2'>{post.description}</p>
               <Link to={`/application/${post._id}`} className='w-full'>
                 <Button className='w-full'>Be a Volunteer</Button>
               </Link>
