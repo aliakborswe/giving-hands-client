@@ -13,6 +13,7 @@ import useAuth from "@/hooks/useAuth";
 import PostDetailsPage from "@/pages/postDetailsPage/postDetailsPage";
 import UpdateVolunteerNeedPost from "@/pages/volunteerNeedPost/UpdateVolunteerNeedPost";
 import AddApplication from "@/pages/volunteerApplicationPage/AddApplication";
+import UpdateApplication from "@/pages/volunteerApplicationPage/UpdateApplication";
 
 
 
@@ -49,6 +50,7 @@ const AllRoutes = () => {
               <Route path='myPosts' element={<MyPosts />} />
               <Route path='posts/:id' element={<PostDetailsPage />} />
               <Route path='application/:id' element={<AddApplication />} />
+              <Route path='updateApplication/:id' element={<UpdateApplication />} />
             </Route>
           </Route>
           {/* error route without header and footer */}

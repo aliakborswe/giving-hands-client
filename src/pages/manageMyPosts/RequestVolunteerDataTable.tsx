@@ -51,6 +51,24 @@ const RequestVolunteerDataTable = () => {
   }, [axiosSecure, user?.email]);
 
 
+    // handle Edit button
+    const handleEdit = (id: string) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to Update this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Update it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(`/updateApplication/${id}`);
+        }
+      });
+    };
+
+
   // handle Delete button
     const handleDelete = async (id: string) => {
       try{
