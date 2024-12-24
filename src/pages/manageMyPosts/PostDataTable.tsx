@@ -11,19 +11,49 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Post } from "@/utils/PostInterface";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const DynamicDataTable = ({ data }: { data: Post[] }) => {
   const [isGridView, setIsGridView] = useState(false);
-  console.log(data);
+  const navigate = useNavigate();
 
   // handle Edit button
   const handleEdit = (id: string) => {
-    console.log("Edit button clicked for ID:", id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to Update this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Update it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/updateVolunteerNeedPost/${id}`);
+      }
+    });
   };
 
   // handle Delete button
   const handleDelete = (id: string) => {
-    console.log("Delete button clicked for ID:", id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   if (data.length === 0) {
@@ -40,6 +70,7 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
           variant='outline'
           size='icon'
           onClick={() => setIsGridView(!isGridView)}
+          className='border-2 border-primary'
         >
           {isGridView ? (
             <TableIcon className='h-4 w-4' />
@@ -84,7 +115,11 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
                         </span>
                       </p>
                       <div className='flex gap-2 pt-4'>
-                        <Button variant={"default"} size={"sm"}>
+                        <Button
+                          variant={"default"}
+                          size={"sm"}
+                          onClick={() => handleEdit(_id)}
+                        >
                           Update
                         </Button>
                         <Button variant={"destructive"} size={"sm"}>

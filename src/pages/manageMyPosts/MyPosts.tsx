@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import DynamicDataTable from "../common/DynamicDataTable";
+import DynamicDataTable from "./PostDataTable";
 import Wrapper from "../common/Wrapper";
 import { Post } from "@/utils/PostInterface";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
