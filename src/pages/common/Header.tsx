@@ -9,7 +9,7 @@ import { useTheme } from "@/context/ThemeProvider";
 import useAuth from "@/hooks/useAuth";
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user, logOut } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
   const { theme, setTheme } = useTheme();
   const [showLogoutBtn, setShowLogoutBtn] = useState(false);
@@ -22,7 +22,7 @@ const Header = () => {
   // handle logout button
   const handleLogout = async () => {
     try {
-      await logout();
+      await logOut();
       setShowLogoutBtn(false);
       navigate("/");
       toast.success("Logout Success!");
@@ -95,7 +95,9 @@ const Header = () => {
                   />
                 </div>
                 <div className='absolute hidden group-hover:block top-10 right-0 rounded-xl shadow-lg'>
-                  <p className="text-end text-sm">{user?.displayName || "Name not found"}</p>
+                  <p className='text-end text-sm'>
+                    {user?.displayName || "Name not found"}
+                  </p>
                   <Button
                     onClick={handleLogout}
                     variant={"default"}

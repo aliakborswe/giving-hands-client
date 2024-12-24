@@ -8,7 +8,7 @@ export type AuthInfo = {
   loading?: boolean;
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
   login: (email: string, password: string) => Promise<UserCredential>;
-  logout: () => Promise<void>;
+  logOut: () => Promise<void>;
   loginWithGoogle: () => Promise<UserCredential>;
   updateUserProfile: (updateInfo: object) => Promise<void>
 

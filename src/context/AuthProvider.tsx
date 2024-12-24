@@ -12,6 +12,7 @@ import {
 import { ReactNode, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 import auth from "@/firebase/firebase.init.ts";
+import axios from "axios";
 
 type Props = {
   children: ReactNode;
@@ -22,8 +23,6 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User>({} as User);
   const [loading, setLoading] = useState(true);
-
-  console.log("user from state", user);
 
   // create user
   const createUser = (email: string, password: string) => {
@@ -44,7 +43,7 @@ const AuthProvider = ({ children }: Props) => {
   };
 
   // logout
-  const logout = () => {
+  const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
@@ -58,13 +57,29 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user as User);
-      setLoading(false);
-      console.log("user from observer", user);
+      console.log('state captured', user?.email);
+      if(user?.email){
+        axios
+          .post(
+            "http://localhost:8000/api/v1/login",
+            { email: user.email },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log("login token", res.data);
+            setLoading(false);
+          });
+      }else{
+        axios.post("http://localhost:8000/api/v1/logout").then((res) => {
+          console.log("logout", res.data);
+          setLoading(false);
+        });
+      }
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [ ]);
 
   // provider value
   const authValue = {
@@ -75,7 +90,7 @@ const AuthProvider = ({ children }: Props) => {
     setLoading,
     login,
     loginWithGoogle,
-    logout,
+    logOut,
     updateUserProfile,
   };
   return (

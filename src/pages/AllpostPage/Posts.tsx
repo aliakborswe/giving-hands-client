@@ -12,7 +12,6 @@ const Posts = () => {
   const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  console.log(search);
 
   useEffect(() => {
     const fetchPosts = async () => {
