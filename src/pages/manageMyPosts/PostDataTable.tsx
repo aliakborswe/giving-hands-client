@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LayoutGrid, Pencil, TableIcon, Trash2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -13,10 +13,36 @@ import {
 import { Post } from "@/utils/PostInterface";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useAuth from "@/hooks/useAuth";
+import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
-const DynamicDataTable = ({ data }: { data: Post[] }) => {
+const PostDataTable = () => {
   const [isGridView, setIsGridView] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
+   useEffect(() => {
+     const fetchPosts = async () => {
+       setLoading(true);
+       try {
+         const res = await axiosSecure.get(`/postByEmail?email=${user?.email}`);
+         setPosts(res.data);
+       } catch (err) {
+         console.error(err);
+       } finally {
+         setLoading(false);
+       }
+     };
+
+     fetchPosts();
+   }, [axiosSecure, user?.email]);
+
+   
 
   // handle Edit button
   const handleEdit = (id: string) => {
@@ -36,8 +62,9 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
   };
 
   // handle Delete button
-  const handleDelete = (id: string) => {
-    Swal.fire({
+  const handleDelete = async (id: string) => {
+    try{
+      Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -47,16 +74,27 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
+        axiosSecure.delete(`/posts?id=${id}`).then(() => {
+          setPosts(posts.filter((post) => post._id !== id));
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          
         });
       }
     });
+    }catch(err:any){
+      toast.error(err.message);
+    }
   };
 
-  if (data.length === 0) {
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (posts.length === 0) {
     return (
       <div className='flex justify-center items-center h-screen'>
         <h1 className='text-3xl font-bold'>No data found</h1>
@@ -83,7 +121,7 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
         <>
           {/* Grid view */}
           <div className='grid grid-cols-1 md:grid-cols-2  gap-4'>
-            {data.map(
+            {posts.map(
               ({ _id, postTitle, thumbnail, status, location, deadline }) => (
                 <Card key={_id} className='flex justify-center items-center'>
                   <div className='w-1/3 h-full'>
@@ -122,7 +160,11 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
                         >
                           Update
                         </Button>
-                        <Button variant={"destructive"} size={"sm"}>
+                        <Button
+                          variant={"destructive"}
+                          size={"sm"}
+                          onClick={() => handleDelete(_id)}
+                        >
                           Delete
                         </Button>
                       </div>
@@ -149,7 +191,7 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.map(
+              {posts.map(
                 (
                   { _id, postTitle, thumbnail, status, location, deadline },
                   index
@@ -201,4 +243,4 @@ const DynamicDataTable = ({ data }: { data: Post[] }) => {
   );
 };
 
-export default DynamicDataTable;
+export default PostDataTable;

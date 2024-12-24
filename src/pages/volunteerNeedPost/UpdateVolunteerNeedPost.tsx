@@ -112,7 +112,7 @@ const UpdateVolunteerNeedPost = () => {
           toast.success("Post Updated successfully");
           form.reset();
           setIsSubmitting(false);
-          navigate("/");
+          navigate("/myPosts");
         })
         .catch((err) => {
           toast.error(err.message);

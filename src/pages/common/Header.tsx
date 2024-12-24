@@ -3,7 +3,7 @@ import logo from "@/assets/svg/logo.svg";
 import { useState } from "react";
 import { Button } from "../../components/ui/button";
 import ActiveLink from "./ActiveLink";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useTheme } from "@/context/ThemeProvider";
 import useAuth from "@/hooks/useAuth";
@@ -40,12 +40,12 @@ const Header = () => {
             <div onClick={toggleMenu} className='lg:hidden'>
               {showMenu == true ? <X size={36} /> : <Menu size={36} />}
             </div>
-            <div className='flex gap-2 items-center justify-start'>
+            <Link to='/' className='flex gap-2 items-center justify-start'>
               <img src={logo} alt='logo' className='w-12' />
               <p className={` font-bold text-xl hidden md:block`}>
                 Giving-Hands
               </p>
-            </div>
+            </Link>
           </div>
           <div
             className={`${
