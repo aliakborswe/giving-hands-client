@@ -2,6 +2,8 @@ import { Helmet } from "react-helmet-async";
 import VolunteerNeedNow from "./VolunteerNeedNow";
 import Slider from "./Slider";
 import VolunteerMakeDay from "./VolunteerMakeDay";
+import FAQ from "./FAQ";
+import ContactInfo from "./ContactInfo";
 
 
 const Home = () => {
@@ -13,6 +15,8 @@ const Home = () => {
         <Slider />
         <VolunteerMakeDay/>
         <VolunteerNeedNow />
+        <FAQ/>
+        <ContactInfo/>
       </div>
     );
 };

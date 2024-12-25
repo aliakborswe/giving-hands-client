@@ -30,7 +30,6 @@ const RequestVolunteerDataTable = () => {
   const [applications, setApplications] = useState<ApplicationInter[]>([]);
   const [isGridView, setIsGridView] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -40,7 +39,6 @@ const RequestVolunteerDataTable = () => {
       setLoading(true);
       try {
         const res = await axiosSecure.get(`/applications?email=${user?.email}`);
-        console.log("data from api", res.data);
         setApplications(res.data);
       } catch (err: any) {
         toast.error(err.message);
@@ -98,7 +96,6 @@ const RequestVolunteerDataTable = () => {
       toast.error(err.message);
     }
   };
-
 
   if (loading) {
     return <Spinner />;
@@ -264,5 +261,3 @@ const RequestVolunteerDataTable = () => {
 };
 
 export default RequestVolunteerDataTable;
-
-

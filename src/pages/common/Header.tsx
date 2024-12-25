@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useTheme } from "@/context/ThemeProvider";
 import useAuth from "@/hooks/useAuth";
+import { cn } from "@/lib/utils";
 
 const Header = () => {
   const { user, logOut } = useAuth();
@@ -53,16 +54,23 @@ const Header = () => {
           <div
             className={`${
               showMenu ? "block" : "hidden"
-            } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0 bg-white lg:bg-transparent`}
+            } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0 bg-secondary lg:bg-transparent`}
           >
             <div className='flex flex-col lg:flex-row  gap-4 md:items-center text-base font-medium text-foreground w-full'>
               <ActiveLink to='/'>Home</ActiveLink>
               <ActiveLink to='/posts'>Posts</ActiveLink>
-              <ActiveLink to='/about'>About</ActiveLink>
               <div className='relative cursor-pointer'>
-                <p onClick={() => setShowProfile(!showProfile)}>Profile</p>
+                <p
+                  onClick={() => setShowProfile(!showProfile)}
+                  className={cn({ "text-primary": showProfile })}
+                >
+                  Profile
+                </p>
                 {showProfile && (
-                  <div onClick={hideProfile} className='absolute top-8 border-2 w-56 p-2 bg-white left-0 rounded-xl shadow-lg '>
+                  <div
+                    onClick={hideProfile}
+                    className='absolute top-8 border-2 w-56 p-2 bg-accent left-0 rounded-xl shadow-lg '
+                  >
                     <ActiveLink to='/addVolunteerNeedPost'>
                       Add Volunteer Need Post
                     </ActiveLink>
@@ -70,6 +78,7 @@ const Header = () => {
                   </div>
                 )}
               </div>
+              <ActiveLink to='/about'>About</ActiveLink>
             </div>
           </div>
 

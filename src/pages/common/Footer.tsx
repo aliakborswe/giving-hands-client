@@ -14,14 +14,14 @@ const footerLinks = {
 
 const Footer = () => {
   return (
-    <footer className='bg-accent/10'>
+    <footer className='bg-secondary/20'>
       <div className='container mx-auto px-4 pt-12'>
         <div className='flex flex-col items-center mb-8'>
           <div className='flex gap-2 items-center justify-start'>
             <img src={logo} alt='logo' className='w-12' />
             <p className={` font-bold text-xl hidden md:block`}>Giving-Hands</p>
           </div>
-          <p className='text-gray-400 mt-2 text-center '>
+          <p className=' mt-2 text-center '>
             Explore volunteer management websites designed to connect
             organizations with passionate individuals, streamlining efforts to
             make a meaningful impact.
@@ -36,7 +36,7 @@ const Footer = () => {
                   <li key={link}>
                     <Link
                       to='/'
-                      className='text-gray-400 hover:text-primary transition-colors'
+                      className=' hover:text-primary transition-colors'
                     >
                       {link}
                     </Link>

@@ -42,16 +42,21 @@ const VolunteerMakeDay = () => {
       </h1>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 '>
         {services.map((service) => (
-          <Card key={service.title} className='border-none shadow-none space-y-2 '>
-            <CardHeader className='space-y-1 flex flex-col items-center text-center p-2'>
-              <div className='bg-primary/10 p-3 rounded-full'>
+          <Card
+            key={service.title}
+            className='border-none bg-background shadow-none space-y-2 group relative overflow-hidden rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 pb-2'
+          >
+            <CardHeader className='space-y-1 flex flex-col items-center text-center p-1'>
+              <div className='bg-primary/10 p-1 relative rounded-full'>
                 <img src={service.image} className='rounded-full w-36 h-36' />
+                <div className='absolute inset-0 rounded-full group-hover:ring-1  group-hover:ring-primary transition-all' />
               </div>
               <CardTitle className='text-xl'>{service.title}</CardTitle>
             </CardHeader>
             <CardContent className='text-base p-0 text-center'>
               <p className='text-muted-foreground'>{service.description}</p>
             </CardContent>
+            <div className='absolute bottom-0 left-0 h-1 w-0 bg-primary/50 transition-all duration-300 group-hover:w-full' />
           </Card>
         ))}
       </div>
