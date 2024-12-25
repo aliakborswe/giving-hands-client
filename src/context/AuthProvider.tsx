@@ -57,21 +57,21 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user as User);
-      console.log('state captured', user?.email);
+      // console.log('state captured', user?.email);
       if(user?.email){
         axios
           .post(
-            "http://localhost:8000/api/v1/login",
+            "https://giving-hands-server.vercel.app/api/v1/login",
             { email: user.email },
             { withCredentials: true }
           )
-          .then((res) => {
-            console.log("login token", res.data);
+          .then(() => {
+            // console.log("login token", res.data);
             setLoading(false);
           });
       }else{
-        axios.post("http://localhost:8000/api/v1/logout").then((res) => {
-          console.log("logout", res.data);
+        axios.post("https://giving-hands-server.vercel.app/api/v1/logout").then(() => {
+          // console.log("logout", res.data);
           setLoading(false);
         });
       }

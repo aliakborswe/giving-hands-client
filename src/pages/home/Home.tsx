@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import VolunterNeedNow from "./VolunterNeedNow";
+import Slider from "./Slider";
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
         <Helmet>
           <title>Giving-Hands | Home</title>
         </Helmet>
+        <Slider />
         <VolunterNeedNow />
       </div>
     );

@@ -6,8 +6,8 @@ import useAuth from "./useAuth";
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000/api/v1',
-    withCredentials: true,
+  baseURL: "https://giving-hands-server.vercel.app/api/v1",
+  withCredentials: true,
 });
 const useAxiosSecure = () => {
     const { logOut } = useAuth();
