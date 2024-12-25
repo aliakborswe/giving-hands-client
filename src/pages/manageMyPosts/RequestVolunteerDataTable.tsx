@@ -102,7 +102,7 @@ const RequestVolunteerDataTable = () => {
   if (applications.length === 0) {
     return (
       <div className='flex justify-center items-center'>
-        <h1 className='text-3xl font-bold'>No data found</h1>
+        <h1 className='text-3xl font-bold text-red-500'>No data found</h1>
       </div>
     );
   }

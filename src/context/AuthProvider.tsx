@@ -61,7 +61,8 @@ const AuthProvider = ({ children }: Props) => {
       if(user?.email){
         axios
           .post(
-            "https://giving-hands-server.vercel.app/api/v1/login",
+            // "https://giving-hands-server.vercel.app/api/v1/login",
+            "http://localhost:8000/api/v1/login",
             { email: user.email },
             { withCredentials: true }
           )
@@ -70,10 +71,15 @@ const AuthProvider = ({ children }: Props) => {
             setLoading(false);
           });
       }else{
-        axios.post("https://giving-hands-server.vercel.app/api/v1/logout").then(() => {
-          // console.log("logout", res.data);
-          setLoading(false);
-        });
+        axios
+          .post(
+            "https://giving-hands-server.vercel.app/api/v1/logout",
+            "http://localhost:8000/api/v1/logout"
+          )
+          .then(() => {
+            // console.log("logout", res.data);
+            setLoading(false);
+          });
       }
     });
     return () => {

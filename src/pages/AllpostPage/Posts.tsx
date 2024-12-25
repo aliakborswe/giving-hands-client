@@ -6,6 +6,7 @@ import PostCard from "../common/PostCard";
 import Spinner from "../common/Spinner";
 import { Input } from "@/components/ui/input";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 const Posts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -19,8 +20,8 @@ const Posts = () => {
       try {
         const res = await axiosSecure.get(`/posts`);
         setPosts(res.data);
-      } catch (err) {
-        console.error(err);
+      } catch (err:any) {
+        toast.error(err.message);
       } finally {
         setLoading(false);
       }

@@ -32,8 +32,8 @@ const PostDataTable = () => {
        try {
          const res = await axiosSecure.get(`/postByEmail?email=${user?.email}`);
          setPosts(res.data);
-       } catch (err) {
-         console.error(err);
+       } catch (err:any) {
+         toast.error(err.message);
        } finally {
          setLoading(false);
        }
@@ -97,7 +97,7 @@ const PostDataTable = () => {
   if (posts.length === 0) {
     return (
       <div className='flex justify-center items-center '>
-        <h1 className='text-3xl font-bold'>No data found</h1>
+        <h1 className='text-3xl font-bold text-red-500'>No data found</h1>
       </div>
     );
   }

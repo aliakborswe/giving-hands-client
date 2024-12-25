@@ -44,12 +44,12 @@ const Register = () => {
 
     if (createUser) {
       createUser(email, password)
-        .then(() => {
+        .then((res) => {
           // backend api call for user registration
           const user = {
-            name: values.name,
-            email: email,
-            photoURL: values.photoURL,
+            name: res?.user?.displayName || values.name,
+            email: res?.user?.email || email,
+            photoURL: res?.user?.photoURL || values.photoURL,
             password: password,
           };
           axiosSecure

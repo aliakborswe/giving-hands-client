@@ -4,11 +4,11 @@ import { Post } from "@/utils/PostInterface";
 import { Link } from "react-router";
 
 
-type Prop ={
+type Props ={
     post: Post
 }
 
-const PostCard = ({post}: Prop) => {
+const PostCard = ({post}: Props) => {
     return (
       <Card className='w-full h-full flex flex-col bg-white text-black'>
         <CardContent className='p-4 flex-grow'>

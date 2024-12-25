@@ -8,6 +8,7 @@ import { Post } from "@/utils/PostInterface";
 import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 const PostDetailsPage = () => {
   const [post, setPost] = useState<Post | null>(null);
@@ -23,8 +24,8 @@ const PostDetailsPage = () => {
       try {
         const res = await axiosSecure.get(`/posts/${id}`);
         setPost(res.data);
-      } catch (err) {
-        console.error(err);
+      } catch (err:any) {
+        toast.error(err.message);
       } finally {
         setLoading(false);
       }

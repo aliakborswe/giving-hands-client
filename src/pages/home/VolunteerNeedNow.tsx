@@ -6,9 +6,10 @@ import PostCard from "../common/PostCard";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 
-const VolunterNeedNow = () => {
+const VolunteerNeedNow = () => {
       const [posts, setPosts] = useState<Post[]>([]);
       const axiosSecure = useAxiosSecure();
       const [loading, setLoading] = useState(false)
@@ -18,8 +19,8 @@ const VolunterNeedNow = () => {
           try {
             const res = await axiosSecure.get(`/posts?limit=6`);
             setPosts(res.data);
-          } catch (err) {
-            console.error(err);
+          } catch (err:any) {
+            toast.error(err.message);
           }finally{
             setLoading(false)
           }
@@ -39,6 +40,7 @@ const VolunterNeedNow = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
           {posts.map((post) => (
             <PostCard key={post._id} post={post} />
+
           ))}
         </div>
         <div className="flex justify-center mt-6">
@@ -52,4 +54,4 @@ const VolunterNeedNow = () => {
     );
 };
 
-export default VolunterNeedNow;
+export default VolunteerNeedNow;
