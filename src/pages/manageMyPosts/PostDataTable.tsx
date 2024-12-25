@@ -17,6 +17,7 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import useAuth from "@/hooks/useAuth";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 const PostDataTable = () => {
   const [isGridView, setIsGridView] = useState(false);
@@ -26,23 +27,21 @@ const PostDataTable = () => {
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
 
-   useEffect(() => {
-     const fetchPosts = async () => {
-       setLoading(true);
-       try {
-         const res = await axiosSecure.get(`/postByEmail?email=${user?.email}`);
-         setPosts(res.data);
-       } catch (err:any) {
-         toast.error(err.message);
-       } finally {
-         setLoading(false);
-       }
-     };
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      try {
+        const res = await axiosSecure.get(`/postByEmail?email=${user?.email}`);
+        setPosts(res.data);
+      } catch (err: any) {
+        toast.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-     fetchPosts();
-   }, [axiosSecure, user?.email]);
-
-   
+    fetchPosts();
+  }, [axiosSecure, user?.email]);
 
   // handle Edit button
   const handleEdit = (id: string) => {
@@ -63,33 +62,31 @@ const PostDataTable = () => {
 
   // handle Delete button
   const handleDelete = async (id: string) => {
-    try{
+    try {
       Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/posts?id=${id}`).then(() => {
-          setPosts(posts.filter((post) => post._id !== id));
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.delete(`/posts?id=${id}`).then(() => {
+            setPosts(posts.filter((post) => post._id !== id));
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success",
             });
-          
-        });
-      }
-    });
-    }catch(err:any){
+          });
+        }
+      });
+    } catch (err: any) {
       toast.error(err.message);
     }
   };
-
 
   if (loading) {
     return <Spinner />;
@@ -152,9 +149,9 @@ const PostDataTable = () => {
                       <p>
                         <strong>Volunteer Needed:</strong>{" "}
                         <span
-                          className={`bg-${
-                            (volunteersNeeded === "0") ? "red" : "green"
-                          }-500 py-1 px-3 rounded-md`}
+                          className={cn({
+                            "text-red-500": volunteersNeeded === "0",
+                          })}
                         >
                           {volunteersNeeded}
                         </span>
@@ -224,9 +221,9 @@ const PostDataTable = () => {
                     <TableCell>{deadline}</TableCell>
                     <TableCell>
                       <span
-                        className={`bg-${
-                          volunteersNeeded === "0" ? "red" : "green"
-                        }-500 py-1 px-3 rounded-md`}
+                        className={cn({
+                          "text-red-500": volunteersNeeded == "0",
+                        })}
                       >
                         {volunteersNeeded}
                       </span>

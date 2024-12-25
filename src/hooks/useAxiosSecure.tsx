@@ -6,8 +6,7 @@ import useAuth from "./useAuth";
 
 
 const axiosInstance = axios.create({
-  // baseURL: "https://giving-hands-server.vercel.app/api/v1",
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL: "https://giving-hands-server.vercel.app/api/v1",
   withCredentials: true,
 });
 const useAxiosSecure = () => {

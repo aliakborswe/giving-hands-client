@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/table";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 interface ApplicationInter {
   _id: string;
@@ -29,6 +30,7 @@ const RequestVolunteerDataTable = () => {
   const [applications, setApplications] = useState<ApplicationInter[]>([]);
   const [isGridView, setIsGridView] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -38,6 +40,7 @@ const RequestVolunteerDataTable = () => {
       setLoading(true);
       try {
         const res = await axiosSecure.get(`/applications?email=${user?.email}`);
+        console.log("data from api", res.data);
         setApplications(res.data);
       } catch (err: any) {
         toast.error(err.message);
@@ -96,6 +99,7 @@ const RequestVolunteerDataTable = () => {
     }
   };
 
+
   if (loading) {
     return <Spinner />;
   }
@@ -132,7 +136,7 @@ const RequestVolunteerDataTable = () => {
                 _id,
                 requestStatus,
                 suggestion,
-                postId: { postTitle, thumbnail, location },
+                postId: { postTitle, thumbnail, location } = {},
               }) => (
                 <Card key={_id} className='flex justify-center items-center'>
                   <div className='w-1/3 h-full'>
@@ -156,15 +160,9 @@ const RequestVolunteerDataTable = () => {
                       <p>
                         <strong>Request Status:</strong>{" "}
                         <span
-                          className={`bg-${
-                            requestStatus === "requested"
-                              ? "yellow-500"
-                              : "red-500"
-                          } bg-${
-                            requestStatus === "approved"
-                              ? "green-500"
-                              : "red-500"
-                          } py-1 px-3 rounded-md`}
+                          className={cn({
+                            "bg-green-500": requestStatus === "requested",
+                          })}
                         >
                           {requestStatus}
                         </span>
@@ -214,7 +212,7 @@ const RequestVolunteerDataTable = () => {
                     _id,
                     requestStatus,
                     suggestion,
-                    postId: { postTitle, thumbnail, location },
+                    postId: { postTitle, thumbnail, location } = {},
                   },
                   index
                 ) => (
@@ -232,13 +230,9 @@ const RequestVolunteerDataTable = () => {
                     <TableCell>{suggestion}</TableCell>
                     <TableCell>
                       <span
-                        className={`bg-${
-                          requestStatus === "requested"
-                            ? "yellow-500"
-                            : "red-500"
-                        } bg-${
-                          requestStatus === "approved" ? "green-500" : "red-500"
-                        } py-1 px-3 rounded-md`}
+                        className={cn({
+                          " text-yellow-500": requestStatus === "requested",
+                        })}
                       >
                         {requestStatus}
                       </span>
@@ -270,3 +264,5 @@ const RequestVolunteerDataTable = () => {
 };
 
 export default RequestVolunteerDataTable;
+
+
