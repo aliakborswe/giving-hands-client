@@ -31,6 +31,9 @@ const Header = () => {
     }
   };
 
+  // hide manage my profile
+  const hideProfile = () => setShowProfile(false);
+
   return (
     <header className=''>
       <div className='container mx-auto px-2.5 py-5'>
@@ -59,7 +62,7 @@ const Header = () => {
               <div className='relative cursor-pointer'>
                 <p onClick={() => setShowProfile(!showProfile)}>Profile</p>
                 {showProfile && (
-                  <div className='absolute top-8 border-2 w-56 p-2 bg-white left-0 rounded-xl shadow-lg '>
+                  <div onClick={hideProfile} className='absolute top-8 border-2 w-56 p-2 bg-white left-0 rounded-xl shadow-lg '>
                     <ActiveLink to='/addVolunteerNeedPost'>
                       Add Volunteer Need Post
                     </ActiveLink>

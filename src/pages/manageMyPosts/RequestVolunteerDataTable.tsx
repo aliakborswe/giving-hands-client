@@ -32,7 +32,6 @@ const RequestVolunteerDataTable = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  console.log("applications", applications);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -40,8 +39,8 @@ const RequestVolunteerDataTable = () => {
       try {
         const res = await axiosSecure.get(`/applications?email=${user?.email}`);
         setApplications(res.data);
-      } catch (err) {
-        console.error(err);
+      } catch (err: any) {
+        toast.error(err.message);
       } finally {
         setLoading(false);
       }
@@ -50,29 +49,27 @@ const RequestVolunteerDataTable = () => {
     fetchPosts();
   }, [axiosSecure, user?.email]);
 
-
-    // handle Edit button
-    const handleEdit = (id: string) => {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to Update this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Update it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate(`/updateApplication/${id}`);
-        }
-      });
-    };
-
+  // handle Edit button
+  const handleEdit = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to Update this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Update it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/updateApplication/${id}`);
+      }
+    });
+  };
 
   // handle Delete button
-    const handleDelete = async (id: string) => {
-      try{
-        Swal.fire({
+  const handleDelete = async (id: string) => {
+    try {
+      Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -94,11 +91,10 @@ const RequestVolunteerDataTable = () => {
           });
         }
       });
-      }catch(err:any){
-        toast.error(err.message);
-      }
-    };
-
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
 
   if (loading) {
     return <Spinner />;
@@ -112,7 +108,7 @@ const RequestVolunteerDataTable = () => {
   }
 
   return (
-    <>      
+    <>
       <div className='flex justify-end mb-4'>
         <Button
           variant='outline'

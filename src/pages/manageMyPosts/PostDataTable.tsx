@@ -122,7 +122,14 @@ const PostDataTable = () => {
           {/* Grid view */}
           <div className='grid grid-cols-1 md:grid-cols-2  gap-4'>
             {posts.map(
-              ({ _id, postTitle, thumbnail, status, location, deadline }) => (
+              ({
+                _id,
+                postTitle,
+                thumbnail,
+                volunteersNeeded,
+                location,
+                deadline,
+              }) => (
                 <Card key={_id} className='flex justify-center items-center'>
                   <div className='w-1/3 h-full'>
                     <img
@@ -143,13 +150,13 @@ const PostDataTable = () => {
                         <strong>Deadline:</strong> {deadline}
                       </p>
                       <p>
-                        <strong>Status:</strong>{" "}
+                        <strong>Volunteer Needed:</strong>{" "}
                         <span
                           className={`bg-${
-                            status === "Ongoing" ? "green" : "red"
-                          }-500 py-0.5 px-3 rounded-sm`}
+                            (volunteersNeeded === "0") ? "red" : "green"
+                          }-500 py-1 px-3 rounded-md`}
                         >
-                          {status}
+                          {volunteersNeeded}
                         </span>
                       </p>
                       <div className='flex gap-2 pt-4'>
@@ -186,14 +193,21 @@ const PostDataTable = () => {
                 <TableHead>Title</TableHead>
                 <TableHead>Location</TableHead>
                 <TableHead>Deadline</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>Volunteer Needed</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {posts.map(
                 (
-                  { _id, postTitle, thumbnail, status, location, deadline },
+                  {
+                    _id,
+                    postTitle,
+                    thumbnail,
+                    location,
+                    deadline,
+                    volunteersNeeded,
+                  },
                   index
                 ) => (
                   <TableRow key={_id}>
@@ -211,10 +225,10 @@ const PostDataTable = () => {
                     <TableCell>
                       <span
                         className={`bg-${
-                          status === "Ongoing" ? "green" : "red"
+                          volunteersNeeded === "0" ? "red" : "green"
                         }-500 py-1 px-3 rounded-md`}
                       >
-                        {status}
+                        {volunteersNeeded}
                       </span>
                     </TableCell>
                     <TableCell className='flex divide-x-2 divide-emerald-400'>

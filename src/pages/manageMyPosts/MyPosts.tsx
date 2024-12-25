@@ -23,12 +23,11 @@ const MyPosts = () => {
         <RequestVolunteerDataTable />
       </section>
       {/* Be a Admin Section */}
-      <section>
+      {/* <section>
         <h1 className='text-center text-xl md:text-2xl lg:text-3xl font-bold pb-8 border-b border-primary mb-4'>
           Be A Admin Handle Volunteer Application on My Posts
         </h1>
-        {/* TODO: Add Be A Admin Handle Volunteer Application on My Posts  */}
-      </section>
+      </section> */}
     </Wrapper>
   );
 };

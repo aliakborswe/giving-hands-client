@@ -63,9 +63,8 @@ const UpdateVolunteerNeedPost = () => {
       postTitle: "",
       description: "",
       category: "Social",
-      status: "Ongoing",
       location: "",
-      volunteersNeeded: 1,
+      volunteersNeeded: 0,
       deadline: " ",
       organizerName: user?.displayName || "",
       organizerEmail: user?.email || "",
@@ -73,12 +72,14 @@ const UpdateVolunteerNeedPost = () => {
   });
 
   useEffect(() => {
+    // initially set default value in form
     if (user) {
       if (user.displayName && user.email) {
         form.setValue("organizerName", user.displayName);
         form.setValue("organizerEmail", user.email);
       }
     }
+    // load post form server and set default value in form
     const fetchPost = async () => {
       try {
         const response = await axiosSecure.get(`/posts/${id}`);
@@ -87,7 +88,6 @@ const UpdateVolunteerNeedPost = () => {
         form.setValue("postTitle", postData.postTitle);
         form.setValue("description", postData.description);
         form.setValue("category", postData.category);
-        form.setValue("status", postData.status);
         form.setValue("location", postData.location);
         form.setValue("volunteersNeeded", postData.volunteersNeeded);
         form.setValue("deadline", postData.deadline);
@@ -256,33 +256,6 @@ const UpdateVolunteerNeedPost = () => {
           />
           <FormField
             control={form.control}
-            name='status'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>status</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className='border-foreground'>
-                      <SelectValue placeholder='Select a category' />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {["Ongoing", "Closed"].map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name='location'
             render={({ field }) => (
               <FormItem>
@@ -307,8 +280,7 @@ const UpdateVolunteerNeedPost = () => {
                 <FormControl>
                   <Input
                     type='number'
-                    min={1}
-                    max={300}
+                    min={0}
                     placeholder='Enter volunteers Needed'
                     {...field}
                     className='border-foreground'

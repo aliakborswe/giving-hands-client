@@ -21,12 +21,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 
+
 const applicationSchema = z.object({
-  organizerName: z.string().min(1, "Organizer name is required"),
-  organizerEmail: z.string().email("Invalid email address"),
+  volunteerName: z.string().min(1, "Organizer name is required"),
+  volunteerEmail: z.string().email("Invalid email address"),
   suggestion: z.string().min(1, "Suggestion is required"),
   requestStatus: z.enum(["requested", "approved", "rejected"]),
 });
+
 
 const UpdateApplication = () => {
   const { user } = useAuth();
@@ -41,21 +43,21 @@ const UpdateApplication = () => {
     defaultValues: {
       suggestion: "",
       requestStatus: "requested",
-      organizerName: user?.displayName || "",
-      organizerEmail: user?.email || "",
+      volunteerName: user?.displayName || "",
+      volunteerEmail: user?.email || ""
     },
   });
 
   useEffect(() => {
     if (user) {
       if (user.displayName && user.email) {
-        form.setValue("organizerName", user.displayName);
-        form.setValue("organizerEmail", user.email);
+        form.setValue("volunteerName", user.displayName);
+        form.setValue("volunteerEmail", user.email);
       }
     }
 
     // load application by id for setting default values
-    const fetchPost = async () => {
+    const fetchApplication = async () => {
       try {
         const response = await axiosSecure.get(`/applications/${id}`);
         const applicationData = response.data;
@@ -64,16 +66,21 @@ const UpdateApplication = () => {
         toast.error(error.message);
       }
     };
-    fetchPost();
+    fetchApplication();
   }, [user]);
+
+
 
   // Define a submit handler.
   function onSubmit(data: z.infer<typeof applicationSchema>) {
     setIsSubmitting(true);
 
     try {
+      const applicationData = {
+        suggestion:data.suggestion,
+      };
       axiosSecure
-        .put(`/applications?id=${id}`, { id, ...data })
+        .put(`/applications?id=${id}`, applicationData)
         .then(() => {
           toast.success("Application updated successfully");
           form.reset();
@@ -132,10 +139,10 @@ const UpdateApplication = () => {
 
           <FormField
             control={form.control}
-            name='organizerName'
+            name='volunteerName'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Organizer Name</FormLabel>
+                <FormLabel>Volunteer Name</FormLabel>
                 <FormControl>
                   <Input {...field} className='border-foreground' disabled />
                 </FormControl>
@@ -145,10 +152,10 @@ const UpdateApplication = () => {
           />
           <FormField
             control={form.control}
-            name='organizerEmail'
+            name='volunteerEmail'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Organizer Email</FormLabel>
+                <FormLabel>Volunteer Email</FormLabel>
                 <FormControl>
                   <Input {...field} className='border-foreground' disabled />
                 </FormControl>
@@ -156,6 +163,7 @@ const UpdateApplication = () => {
               </FormItem>
             )}
           />
+
           {/* Form Submit Button is here */}
           <Button type='submit' disabled={isSubmitting} className='w-full'>
             {isSubmitting ? "Requesting..." : "Request"}

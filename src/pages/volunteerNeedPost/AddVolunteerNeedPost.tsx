@@ -62,9 +62,8 @@ const AddVolunteerNeedPost = () => {
       postTitle: "",
       description: "",
       category: "Social",
-      status: "Ongoing",
       location: "",
-      volunteersNeeded: 1,
+      volunteersNeeded: 0,
       deadline: " ",
       organizerName: user?.displayName || "",
       organizerEmail: user?.email || "",
@@ -72,12 +71,14 @@ const AddVolunteerNeedPost = () => {
   });
 
   useEffect(() => {
+    // set default value in form
     if (user) {
       if (user.displayName && user.email) {
         form.setValue("organizerName", user.displayName);
         form.setValue("organizerEmail", user.email);
       }
     }
+    
   }, [user]);
 
   // Define a submit handler.
@@ -234,33 +235,6 @@ const AddVolunteerNeedPost = () => {
           />
           <FormField
             control={form.control}
-            name='status'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>status</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className='border-foreground'>
-                      <SelectValue placeholder='Select a category' />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {["Ongoing", "Closed"].map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name='location'
             render={({ field }) => (
               <FormItem>
@@ -285,8 +259,7 @@ const AddVolunteerNeedPost = () => {
                 <FormControl>
                   <Input
                     type='number'
-                    min={1}
-                    max={300}
+                    min={0}
                     placeholder='Enter volunteers Needed'
                     {...field}
                     className='border-foreground'

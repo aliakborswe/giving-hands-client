@@ -16,7 +16,6 @@ const PostDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  console.log(post?.status);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -36,13 +35,13 @@ const PostDetailsPage = () => {
 
   // handle Be a Volunteer button
   const handleBeVolunteerBtn = (id: string) => {
-    if(post?.status === "Ongoing"){
+    if(post && Number(post.volunteersNeeded) > 0){
       navigate(`/application/${id}`);
     }else{
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "This post is not active",
+        text: "No more volunteers needed!",
       });
     }
   }
@@ -91,10 +90,6 @@ const PostDetailsPage = () => {
                 {post.organizerName}
               </div>
               <div>
-                <span>Status: </span>
-                {post.status}
-              </div>
-              <div>
                 <span>Volunteers Needed: </span>
                 {post.volunteersNeeded}
               </div>
@@ -102,10 +97,10 @@ const PostDetailsPage = () => {
                 <strong>Status: </strong>
                 <span
                   className={`bg-${
-                    post.status === "Ongoing" ? "green" : "red"
-                  }-500 py-0.5 px-3 rounded-sm`}
+                    post.volunteersNeeded === "0" ? "red" : "green"
+                  }-500 py-1 px-3 rounded-md`}
                 >
-                  {post.status}
+                  {post.volunteersNeeded}
                 </span>
               </div>
             </div>

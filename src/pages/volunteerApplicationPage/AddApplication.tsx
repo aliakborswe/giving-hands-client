@@ -20,13 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
+import { applicationSchema } from "@/utils/applicationSchema";
 
-const applicationSchema = z.object({
-  organizerName: z.string().min(1, "Organizer name is required"),
-  organizerEmail: z.string().email("Invalid email address"),
-  suggestion: z.string().min(1, "Suggestion is required"),
-  requestStatus: z.enum(["requested", "approved", "rejected"]),
-});
 
 const AddApplication = () => {
   const { user } = useAuth();
@@ -35,24 +30,55 @@ const AddApplication = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
+
+
   // Define form.
   const form = useForm<z.infer<typeof applicationSchema>>({
     resolver: zodResolver(applicationSchema),
     defaultValues: {
       suggestion: "",
       requestStatus: "requested",
+      volunteerName: user?.displayName || "",
+      volunteerEmail: user?.email || "",
+      thumbnail: "",
+      postTitle: "",
+      description: "",
+      category: " ",
+      location: "",
+      volunteersNeeded: 0,
+      deadline: " ",
       organizerName: user?.displayName || "",
       organizerEmail: user?.email || "",
     },
   });
 
   useEffect(() => {
+    // initially set default value in form
     if (user) {
       if (user.displayName && user.email) {
-        form.setValue("organizerName", user.displayName);
-        form.setValue("organizerEmail", user.email);
+        form.setValue("volunteerName", user.displayName);
+        form.setValue("volunteerEmail", user.email);
       }
     }
+    // load post form server and set default value in form
+    const fetchPost = async () => {
+      try {
+        const response = await axiosSecure.get(`/posts/${id}`);
+        const postData = response.data;
+        form.setValue("thumbnail", postData.thumbnail);
+        form.setValue("postTitle", postData.postTitle);
+        form.setValue("description", postData.description);
+        form.setValue("category", postData.category);
+        form.setValue("location", postData.location);
+        form.setValue("volunteersNeeded", postData.volunteersNeeded);
+        form.setValue("deadline", postData.deadline);
+        form.setValue("organizerName", postData.organizerName);
+        form.setValue("organizerEmail", postData.organizerEmail);
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+    };
+    fetchPost();
   }, [user]);
 
   // Define a submit handler.
@@ -60,8 +86,15 @@ const AddApplication = () => {
     setIsSubmitting(true);
 
     try {
+      const applicationData = {
+        id,
+        volunteerEmail:data.volunteerEmail,
+        volunteerName:data.volunteerName,
+        suggestion:data.suggestion,
+        requestStatus:data.requestStatus,
+      };
       axiosSecure
-        .post("/applications", { id, ...data })
+        .post("/applications", applicationData)
         .then(() => {
           toast.success("Application added successfully");
           form.reset();
@@ -109,7 +142,7 @@ const AddApplication = () => {
             name='requestStatus'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Request Status</FormLabel>
+                <FormLabel>Status</FormLabel>
                 <FormControl>
                   <Input {...field} className='border-foreground' disabled />
                 </FormControl>
@@ -118,6 +151,144 @@ const AddApplication = () => {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name='volunteerName'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Volunteer Name</FormLabel>
+                <FormControl>
+                  <Input {...field} className='border-foreground' disabled />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='volunteerEmail'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Volunteer Email</FormLabel>
+                <FormControl>
+                  <Input {...field} className='border-foreground' disabled />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* volunteer need post form value */}
+          <FormField
+            control={form.control}
+            name='thumbnail'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Thumbnail URL</FormLabel>
+                <FormControl>
+                  <Input {...field} className='border-foreground' disabled />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='postTitle'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Post Title</FormLabel>
+                <FormControl>
+                  <Input {...field} className='border-foreground' disabled />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='description'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Need Volunteer Description</FormLabel>
+                <FormControl>
+                  <Textarea {...field} className='border-foreground' disabled />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='category'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Enter location'
+                    {...field}
+                    className='border-foreground'
+                    disabled
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='location'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Enter location'
+                    {...field}
+                    className='border-foreground'
+                    disabled
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='volunteersNeeded'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Volunteers Needed</FormLabel>
+                <FormControl>
+                  <Input
+                    type='number'
+                    {...field}
+                    className='border-foreground'
+                    disabled
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='deadline'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Deadline</FormLabel>
+                <FormControl>
+                  <Input
+                    type='string'
+                    {...field}
+                    className='border-foreground'
+                    disabled
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name='organizerName'
