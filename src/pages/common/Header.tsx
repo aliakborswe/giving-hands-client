@@ -54,7 +54,7 @@ const Header = () => {
           <div
             className={`${
               showMenu ? "block" : "hidden"
-            } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0 bg-secondary lg:bg-transparent`}
+            } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0 bg-[#A77AF5] lg:bg-transparent`}
           >
             <div className='flex flex-col lg:flex-row  gap-4 md:items-center text-base font-medium text-foreground w-full'>
               <ActiveLink to='/'>Home</ActiveLink>
@@ -69,7 +69,7 @@ const Header = () => {
                 {showProfile && (
                   <div
                     onClick={hideProfile}
-                    className='absolute top-8 border-2 w-56 p-2 bg-accent left-0 rounded-xl shadow-lg '
+                    className='absolute top-8 border-2 w-56 p-2 bg-[#8d5ce2] text-white left-0 rounded-xl shadow-lg '
                   >
                     <ActiveLink to='/addVolunteerNeedPost'>
                       Add Volunteer Need Post

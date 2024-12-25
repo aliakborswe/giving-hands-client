@@ -158,7 +158,9 @@ const RequestVolunteerDataTable = () => {
                         <strong>Request Status:</strong>{" "}
                         <span
                           className={cn({
-                            "bg-green-500": requestStatus === "requested",
+                            "text-yellow-600": requestStatus === "rejected",
+                            "text-green-600": requestStatus === "approved",
+                            "text-red-600": requestStatus === "rejected",
                           })}
                         >
                           {requestStatus}
@@ -228,7 +230,9 @@ const RequestVolunteerDataTable = () => {
                     <TableCell>
                       <span
                         className={cn({
-                          " text-yellow-500": requestStatus === "requested",
+                          "text-yellow-600": requestStatus === "rejected",
+                          "text-green-600": requestStatus === "approved",
+                          "text-red-600": requestStatus === "rejected",
                         })}
                       >
                         {requestStatus}

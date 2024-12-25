@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { Post } from "@/utils/PostInterface";
 import { Link } from "react-router";
 
@@ -36,9 +37,9 @@ const PostCard = ({post}: Props) => {
             <div>
               <strong>Volunteers Needed: </strong>
               <span
-                className={`bg-${
-                  post.volunteersNeeded === "0" ? "red" : "green"
-                }-500 py-1 px-3 rounded-md`}
+                className={cn({
+                  [post.volunteersNeeded == "0" ? "text-red-600" : "text-green-600"]: true,
+                })}
               >
                 {post.volunteersNeeded}
               </span>

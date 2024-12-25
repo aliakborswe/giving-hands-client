@@ -150,7 +150,8 @@ const PostDataTable = () => {
                         <strong>Volunteer Needed:</strong>{" "}
                         <span
                           className={cn({
-                            "text-red-500": volunteersNeeded === "0",
+                            "text-red-500": volunteersNeeded == "0",
+                            "text-green-500": volunteersNeeded != "0",
                           })}
                         >
                           {volunteersNeeded}
@@ -223,6 +224,7 @@ const PostDataTable = () => {
                       <span
                         className={cn({
                           "text-red-500": volunteersNeeded == "0",
+                          "text-green-500": volunteersNeeded != "0",
                         })}
                       >
                         {volunteersNeeded}
