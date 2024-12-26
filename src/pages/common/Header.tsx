@@ -36,7 +36,7 @@ const Header = () => {
   const hideProfile = () => setShowProfile(false);
 
   return (
-    <header className=''>
+    <header>
       <div className='container mx-auto px-2.5 py-5'>
         <nav className='flex flex-row gap-6 justify-between items-center'>
           <div className='flex items-center'>
@@ -57,8 +57,14 @@ const Header = () => {
             } lg:block absolute z-10 lg:static top-20 left-0 p-4 rounded-xl pr-16 lg:pr-0 bg-[#A77AF5] lg:bg-transparent`}
           >
             <div className='flex flex-col lg:flex-row  gap-4 md:items-center text-base font-medium text-foreground w-full'>
+              <div onClick={hideProfile}>
+
               <ActiveLink to='/'>Home</ActiveLink>
+              </div>
+              <div onClick={hideProfile}>
+
               <ActiveLink to='/posts'>Posts</ActiveLink>
+              </div>
               <div className='relative cursor-pointer'>
                 <p
                   onClick={() => setShowProfile(!showProfile)}
@@ -68,17 +74,22 @@ const Header = () => {
                 </p>
                 {showProfile && (
                   <div
-                    onClick={hideProfile}
                     className='absolute top-8 border-2 w-56 p-2 bg-[#8d5ce2] text-white left-0 rounded-xl shadow-lg '
                   >
-                    <ActiveLink to='/addVolunteerNeedPost'>
-                      Add Volunteer Need Post
-                    </ActiveLink>
-                    <ActiveLink to='/myPosts'>Manage My Posts</ActiveLink>
+                    <div onClick={hideProfile}>
+                      <ActiveLink to='/addVolunteerNeedPost'>
+                        Add Volunteer Need Post
+                      </ActiveLink>
+                    </div>
+                    <div onClick={hideProfile}>
+                      <ActiveLink to='/myPosts'>Manage My Posts</ActiveLink>
+                    </div>
                   </div>
                 )}
               </div>
-              <ActiveLink to='/about'>About</ActiveLink>
+              <div onClick={hideProfile}>
+                <ActiveLink to='/about'>About</ActiveLink>
+              </div>
             </div>
           </div>
 

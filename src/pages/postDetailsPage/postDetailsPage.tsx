@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 const PostDetailsPage = () => {
   const [post, setPost] = useState<Post | null>(null);
@@ -97,9 +98,10 @@ const PostDetailsPage = () => {
               <div>
                 <strong>Status: </strong>
                 <span
-                  className={`bg-${
-                    post.volunteersNeeded === "0" ? "red" : "green"
-                  }-500 py-1 px-3 rounded-md`}
+                  className={cn({
+                    "text-red-600": post.volunteersNeeded == "0",
+                    "text-green-600": post.volunteersNeeded != "0",
+                  })}
                 >
                   {post.volunteersNeeded}
                 </span>
