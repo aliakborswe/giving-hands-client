@@ -47,9 +47,8 @@ const VolunteerMakeDay = () => {
             className='border-none bg-background shadow-none space-y-2 group relative overflow-hidden rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 pb-2'
           >
             <CardHeader className='space-y-1 flex flex-col items-center text-center p-1'>
-              <div className='bg-primary/10 p-1 relative rounded-full'>
+              <div className='bg-primary/10 p-1 group-hover:bg-primary/50 relative rounded-full'>
                 <img src={service.image} className='rounded-full w-36 h-36' />
-                <div className='absolute inset-0 rounded-full group-hover:ring-1  group-hover:ring-primary transition-all' />
               </div>
               <CardTitle className='text-xl'>{service.title}</CardTitle>
             </CardHeader>

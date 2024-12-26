@@ -4,6 +4,7 @@ import Slider from "./Slider";
 import VolunteerMakeDay from "./VolunteerMakeDay";
 import FAQ from "./FAQ";
 import ContactInfo from "./ContactInfo";
+import PreserveNature from "./PreserveNature";
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
         <Slider />
         <VolunteerMakeDay/>
         <VolunteerNeedNow />
+        <PreserveNature/>
         <FAQ/>
         <ContactInfo/>
       </div>
