@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Wrapper from "../common/Wrapper";
 import handsImg from "@/assets/images/Screenshot_24.png";
 import bannerImg from "@/assets/images/bg.jpg";
+import ActivityGallery from "./ActivityGallery";
 
 
 const About = () => {
@@ -58,7 +59,7 @@ const About = () => {
           </div>
         </div>
       </section>
-      <Wrapper>About page</Wrapper>
+      <ActivityGallery/>
     </>
   );
 };
