@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useTheme } from "@/context/ThemeProvider";
 import useAuth from "@/hooks/useAuth";
-import { cn } from "@/lib/utils";
 
 const Header = () => {
   const { user, logOut } = useAuth();
@@ -64,10 +63,12 @@ const Header = () => {
             <div className='flex flex-col lg:flex-row  gap-4 lg:items-center text-base font-medium text-foreground w-full'>
               <ActiveLink to='/'>Home</ActiveLink>
               <ActiveLink to='/posts'>Posts</ActiveLink>
-              <div className='flex flex-col lg:flex-row gap-2'>
-                <ActiveLink to='/addVolunteerNeedPost'>Add Post</ActiveLink>
-                <ActiveLink to='/myPosts'>Manage Posts</ActiveLink>
-              </div>
+              {user && (
+                <div className='flex flex-col lg:flex-row gap-2'>
+                  <ActiveLink to='/addVolunteerNeedPost'>Add Post</ActiveLink>
+                  <ActiveLink to='/myPosts'>Manage Posts</ActiveLink>
+                </div>
+              )}
               <ActiveLink to='/about'>About</ActiveLink>
             </div>
           </div>

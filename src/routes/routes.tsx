@@ -14,6 +14,7 @@ import PostDetailsPage from "@/pages/postDetailsPage/postDetailsPage";
 import UpdateVolunteerNeedPost from "@/pages/volunteerNeedPost/UpdateVolunteerNeedPost";
 import AddApplication from "@/pages/volunteerApplicationPage/AddApplication";
 import UpdateApplication from "@/pages/volunteerApplicationPage/UpdateApplication";
+import BaseLayout from "@/layouts/BaseLayout";
 
 
 
@@ -28,8 +29,6 @@ const AllRoutes = () => {
             <Route index element={<Home />} />
             <Route path='posts' element={<Posts />} />
             <Route path='about' element={<About />} />
-            <Route path='register' element={<Register />} />
-            <Route path='login' element={<Login />} />
             {/* Privet routes */}
             <Route
               element={
@@ -50,8 +49,16 @@ const AllRoutes = () => {
               <Route path='myPosts' element={<MyPosts />} />
               <Route path='posts/:id' element={<PostDetailsPage />} />
               <Route path='application/:id' element={<AddApplication />} />
-              <Route path='updateApplication/:id' element={<UpdateApplication />} />
+              <Route
+                path='updateApplication/:id'
+                element={<UpdateApplication />}
+              />
             </Route>
+          </Route>
+          {/* Auth route without header and footer */}
+          <Route path='/' element={<BaseLayout />}>
+            <Route path='register' element={<Register />} />
+            <Route path='login' element={<Login />} />
           </Route>
           {/* error route without header and footer */}
           <Route path='*' element={<ErrorPage />} />
