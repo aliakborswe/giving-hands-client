@@ -2,16 +2,6 @@ import { Facebook, Github, Linkedin, Twitter } from "lucide-react";
 import { Link } from "react-router";
 import logo from "@/assets/svg/logo.svg";
 
-// const footerLinks = {
-//   : [
-//     "",
-//     "Event planning software",
-//     "Community engagement tools",
-//   ],
-//   Company: [""],
-//   Legal: ["Terms of Service", "Privacy Policy", "Cookie Policy"],
-// };
-
 const Footer = () => {
   return (
     <footer className='bg-secondary/20'>
@@ -64,13 +54,13 @@ const Footer = () => {
             <Link to='https://www.facebook.com/aliakbor28924'>
               <Facebook />
             </Link>
-            <Link to='https://github.com/aliakbordev'>
+            <Link to='https://github.com/aliakborswe'>
               <Github />
             </Link>
-            <Link to='https://www.linkedin.com/aliakbordev/'>
+            <Link to='https://www.linkedin.com/aliakborswe/'>
               <Linkedin />
             </Link>
-            <Link to='https://x.com/aliakbordev'>
+            <Link to='https://x.com/aliakborswe'>
               <Twitter />
             </Link>
           </div>

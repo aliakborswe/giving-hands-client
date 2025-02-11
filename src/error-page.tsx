@@ -3,7 +3,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const ErrorPage = () => {
   return (
-    <div className='w-full h-screen'>
+    <div className='w-full h-screen flex justify-center items-center'>
       <div className='container mx-auto px-2.5 flex flex-col justify-center items-center'>
         <DotLottieReact
           src='https://lottie.host/eca3cfe9-6e97-4d51-baf9-33d6916039ed/DptL15B3bv.lottie'

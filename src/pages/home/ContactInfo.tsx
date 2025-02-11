@@ -10,12 +10,12 @@ const contactInfo = [
   },
   {
     icon: Phone,
-    info: "+880 1804555186",
-    href: "tel:+880 1804555186",
+    info: "+880 1730255696",
+    href: "tel:+880 1730255696",
   },
   {
     icon: Mail,
-    info: "admin@astzo.com",
+    info: "aliakborswe@gmail.com",
     href: "mailto:aliakborswe@gmail.com",
   },
 ];
