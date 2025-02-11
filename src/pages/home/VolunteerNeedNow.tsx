@@ -17,7 +17,7 @@ const VolunteerNeedNow = () => {
         const fetchPosts = async () => {
           setLoading(true)
           try {
-            const res = await axiosSecure.get(`/posts?limit=6`);
+            const res = await axiosSecure.get(`/posts?limit=8`);
             setPosts(res.data);
           } catch (err:any) {
             toast.error(err.message);
@@ -37,7 +37,7 @@ const VolunteerNeedNow = () => {
         <h1 className='text-center text-xl md:text-2xl lg:text-3xl font-bold pb-8'>
           Volunteer Needs Now Section
         </h1>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
           {posts.map((post) => (
             <PostCard key={post._id} post={post} />
 

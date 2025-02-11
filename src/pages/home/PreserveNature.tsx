@@ -37,11 +37,11 @@ const PreserveNature = () => {
         {services.map((service) => (
           <Card
             key={service.title}
-            className='border-none bg-background shadow-none space-y-2 group relative overflow-hidden rounded-lg transition-all hover:shadow-lg  pb-2'
+            className='border-none bg-background shadow-none space-y-2 group relative overflow-hidden rounded-lg transition-all hover:shadow-lg  pb-2 p-6'
           >
             <CardHeader className='space-y-1 flex flex-col items-center text-center p-1'>
               <div className='bg-primary/10 p-1 relative rounded-full'>
-                <img src={service.image} className='rounded-full w-36 h-36' />
+                <img src={service.image} className='rounded-full w-32 h-32' />
                 <div className='absolute inset-0 rounded-full group-hover:bg-green-500/50 transition-all' />
               </div>
               <CardTitle className='text-xl'>{service.title}</CardTitle>

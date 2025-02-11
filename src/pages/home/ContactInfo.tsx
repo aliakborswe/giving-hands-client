@@ -16,7 +16,7 @@ const contactInfo = [
   {
     icon: Mail,
     info: "admin@astzo.com",
-    href: "mailto:admin@astzo.com",
+    href: "mailto:aliakborswe@gmail.com",
   },
 ];
 
@@ -57,7 +57,7 @@ const ContactInfo = () => {
                   </div>
                   <a
                     href={item.href}
-                    className='text-sm hover:text-primary transition-colors'
+                    className='text-sm hover:text-primary text-black transition-colors'
                   >
                     {item.info}
                   </a>

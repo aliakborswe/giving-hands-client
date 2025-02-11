@@ -40,20 +40,20 @@ const VolunteerMakeDay = () => {
       <h1 className='text-center text-xl md:text-2xl lg:text-3xl font-bold pb-8'>
         Volunteers make each day brighter
       </h1>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 '>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 '>
         {services.map((service) => (
           <Card
             key={service.title}
-            className='border-none bg-background shadow-none space-y-2 group relative overflow-hidden rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 py-4 px'
+            className='border-none bg-background group relative overflow-hidden rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 py-4'
           >
-            <CardHeader className='space-y-1 flex flex-col items-center text-center p-1'>
+            <CardHeader className='flex justify-center items-center p-0'>
               <div className='bg-primary/10 p-1 group-hover:bg-primary/50 relative rounded-full'>
-                <img src={service.image} className='rounded-full w-36 h-36' />
+                <img src={service.image} className='rounded-full md:w-32 md:h-32' />
               </div>
-              <CardTitle className='text-xl'>{service.title}</CardTitle>
             </CardHeader>
             <CardContent className='text-base p-0 text-center'>
-              <p className='text-muted-foreground'>{service.description}</p>
+              <CardTitle className='text-xl py-2'>{service.title}</CardTitle>
+              <p className='text-muted-foreground px-1'>{service.description}</p>
             </CardContent>
             <div className='absolute bottom-0 left-0 h-1 w-0 bg-primary/50 transition-all duration-300 group-hover:w-full' />
           </Card>
