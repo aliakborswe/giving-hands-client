@@ -44,7 +44,7 @@ const VolunteerMakeDay = () => {
         {services.map((service) => (
           <Card
             key={service.title}
-            className='border-none bg-background shadow-none space-y-2 group relative overflow-hidden rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 pb-2'
+            className='border-none bg-background shadow-none space-y-2 group relative overflow-hidden rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 py-4 px'
           >
             <CardHeader className='space-y-1 flex flex-col items-center text-center p-1'>
               <div className='bg-primary/10 p-1 group-hover:bg-primary/50 relative rounded-full'>

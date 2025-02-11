@@ -21,28 +21,11 @@ const PostCard = ({ post }: Props) => {
         </div>
         <h3 className='text-lg font-semibold mb-2'>{post.postTitle}</h3>
         <div className='space-y-2 text-sm [&_span]:font-semibold'>
-          <div className='text-sm flex gap-2 '>
-            <span>Category:</span>
-            {post.category}
-          </div>
           <div className='text-sm flex gap-2'>
-            <span>Deadline:</span>
             {post.deadline}
           </div>
           <div className='flex gap-2 items-center'>
-            <span>Location:</span>
             {post.location}
-          </div>
-          <div>
-            <strong>Volunteers Needed: </strong>
-            <span
-              className={cn({
-                "text-red-600": post.volunteersNeeded == "0",
-                "text-green-600": post.volunteersNeeded != "0",
-              })}
-            >
-              {post.volunteersNeeded}
-            </span>
           </div>
         </div>
       </CardContent>
