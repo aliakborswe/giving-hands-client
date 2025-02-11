@@ -22,7 +22,7 @@ import slide5 from "@/assets/images/image-3-1.jpg";
 
 const Slider = () => {
   return (
-    <div>
+    <div className="-z-100">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={0}
