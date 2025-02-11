@@ -9,7 +9,7 @@ type Props = {
 
 const PostCard = ({ post }: Props) => {
   return (
-    <Card className='flex flex-col bg-background '>
+    <Card className='flex flex-col bg-background p-2'>
       <CardContent className='p-2 flex-grow'>
         <div className='aspect-w-16 aspect-h-9 mb-2'>
           <img
