@@ -96,8 +96,8 @@ const Header = () => {
                       alt='photo'
                     />
                   </div>
-                  <div className='absolute z-10 hidden group-hover:block top-10 right-0 rounded-xl shadow-lg'>
-                    <p className='text-end text-sm'>
+                  <div className='absolute z-10 hidden group-hover:block top-14 -right-10 rounded-xl shadow-lg shadow-primary w-28'>
+                    <p className='text-center text-sm w-full'>
                       {user?.displayName || "Name not found"}
                     </p>
                   </div>

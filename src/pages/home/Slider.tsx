@@ -44,7 +44,7 @@ const Slider = () => {
             />
             <div className='absolute inset-0 bg-black opacity-50'></div>
             <div className='relative container mx-2.5 text-center flex flex-col items-center justify-center text-white h-full w-full'>
-              <h1 className='text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
+              <h1 className='text-xl md:text-3xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
                 We try to help people with volunteering
               </h1>
               <p className='text-base md:text-2xl font-semibold'>
@@ -62,7 +62,7 @@ const Slider = () => {
             />
             <div className='absolute inset-0 bg-black opacity-50'></div>
             <div className='relative container mx-2.5 text-center flex flex-col items-center justify-center text-white h-full w-full'>
-              <h1 className='text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
+              <h1 className='text-xl md:text-3xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
                 Every Small Act Makes a Big Difference. Volunteer Now!
               </h1>
               <p className='text-base md:text-2xl font-semibold'>
@@ -80,7 +80,7 @@ const Slider = () => {
             />
             <div className='absolute inset-0 bg-black opacity-50'></div>
             <div className='relative container mx-2.5 text-center flex flex-col items-center justify-center text-white h-full w-full'>
-              <h1 className='text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
+              <h1 className='text-xl md:text-3xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
                 There is a Great Value For Doing Good to Others
               </h1>
               <p className='text-base md:text-2xl font-semibold'>
@@ -98,7 +98,7 @@ const Slider = () => {
             />
             <div className='absolute inset-0 bg-black opacity-50'></div>
             <div className='relative container mx-2.5 text-center flex flex-col items-center justify-center text-white h-full w-full'>
-              <h1 className='text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
+              <h1 className='text-xl md:text-3xl lg:text-5xl font-semibold mb-4 md:mb-6 uppercase leading-relaxed'>
                 Lend a Hand, Spread the Hope. Start Volunteering Today!
               </h1>
               <p className='text-base md:text-2xl font-semibold'>
